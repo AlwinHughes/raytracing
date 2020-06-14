@@ -4,13 +4,13 @@
 #include "spheresceene.h"
 #include "vector3.h"
 #include <iostream>
-#include <png++/png.hpp>
 
 
 #include <sstream>
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
+#include <png++/png.hpp>
 
 using namespace png;
 using namespace std;

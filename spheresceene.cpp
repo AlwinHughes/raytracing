@@ -16,6 +16,25 @@ bool SphereSceene::hasIntersection(Ray ray) {
   return false;
 };
 
+bool SphereSceene::hasPositiveInter(Ray ray) {
+  for(int i = 0; i < curr_num_sphres; i++) {
+    if(spheres[i].hasPositiveInter(ray)) {
+      return true;
+    }
+  }
+  return false;
+};
+
+bool SphereSceene::isInShade(Intersection* inter, Vector3 light_pos) {
+  for(int i = 0; i < curr_num_sphres; i ++) {
+    if(&spheres[i] != inter->hit_object && spheres[i].hasPositiveInter(Ray(inter->pos,light_pos - inter->pos))) {
+      return true;
+    }
+  }
+  return false;
+}
+
+
 SphereSceene::SphereSceene(int n) {
   max_num_spheres = n;
   curr_num_sphres = 0; 
@@ -67,4 +86,6 @@ Intersection* SphereSceene::getClosestInter(Ray ray, Vector3 cam_pos) {
 
   return best;
 };
+
+
 

@@ -3,7 +3,6 @@
 
 #include <sstream>
 #include "vector3.h"
-//#include "sphere.h"
 
 class Sphere;
 
@@ -25,6 +24,4 @@ class Intersection {
     std::string toString();
 
 };
-
-
 #endif

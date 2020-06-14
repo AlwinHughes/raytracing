@@ -16,6 +16,7 @@ class Sphere {
     std::string toString ();
     std::pair<float,float> intersectRay(Ray);
     bool doesIntersect(Ray);
+    bool hasPositiveInter(Ray);
     Intersection* getInter(Ray);
     Sphere();
     Sphere(Vector3, float);
