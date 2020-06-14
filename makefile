@@ -1,10 +1,14 @@
 CXX = g++
 
-test : test.o ray.o sphere.o spheresceene.o plane.o
-	$(CXX) -o test test.o ray.o sphere.o spheresceene.o plane.o `libpng-config --ldflags`
+entry : entry.o  console_tracing.o ray.o sphere.o spheresceene.o plane.o
+	$(CXX) -o entry entry.o ray.o sphere.o spheresceene.o plane.o `libpng-config --ldflags`
 
-test.o : test.cpp
-	$(CXX) -c test.cpp `libpng-config --cflags`
+entry.o : entry.cpp 
+	$(CXX) -c entry.cpp `libpng-config --cflags`
+
+
+console_tracing.o : console_tracing.cpp
+#	$(CXX) -c console_tracing.cpp `libpng-config --cflags`
 
 ray.o : ray.cpp ray.h
 	$(CXX) -c ray.cpp

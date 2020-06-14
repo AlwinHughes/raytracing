@@ -10,6 +10,12 @@ Sphere::Sphere(Vector3 c, float ra) {
   r = ra;
 };
 
+Sphere::Sphere(Vector3 c, float ra, png::rgb_pixel col) {
+  center = c;
+  r = ra;
+  pixel_col = col;
+};
+
 
 std::string Sphere::toString () {
   std::ostringstream ss;

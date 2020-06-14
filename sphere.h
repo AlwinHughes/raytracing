@@ -5,6 +5,7 @@
 #include "vector3.h"
 #include "ray.h"
 #include "intersection.h"
+#include <png++/png.hpp>
 
 class Sphere {
   private:
@@ -18,6 +19,8 @@ class Sphere {
     Intersection* getInter(Ray);
     Sphere();
     Sphere(Vector3, float);
+    Sphere(Vector3, float, png::rgb_pixel);
     char char_col = '#';
+    png::rgb_pixel pixel_col;
 };
 #endif
