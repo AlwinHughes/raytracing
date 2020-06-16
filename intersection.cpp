@@ -1,4 +1,5 @@
 #include "intersection.h"
+#include "renderable.h"
 #include <sstream>
 
 

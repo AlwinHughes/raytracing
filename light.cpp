@@ -6,5 +6,5 @@ Light::Light(Vector3 p, float b) {
 };
 Light::Light(Vector3 p) {
   pos = p;
-}
+};
 

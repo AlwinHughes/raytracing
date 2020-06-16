@@ -3,20 +3,21 @@
 
 #include <sstream>
 #include "vector3.h"
+#include "intersection.h"
 
-class Sphere;
+class Renderable;
 
 class Intersection {
 
   public:
-    Sphere* hit_object;
+    Renderable* hit_object;
     Vector3 pos;
     Vector3 normal;
-    Intersection(Sphere* hit, Vector3 p) {
+    Intersection(Renderable* hit, Vector3 p) {
       hit_object = hit;
       pos = p;
     };
-    Intersection(Sphere* hit, Vector3 p, Vector3 n) {
+    Intersection(Renderable* hit, Vector3 p, Vector3 n) {
       hit_object = hit;
       pos = p;
       normal = n;
