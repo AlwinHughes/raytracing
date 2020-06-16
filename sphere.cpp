@@ -20,7 +20,7 @@ Sphere::Sphere(Vector3 c, float ra, png::rgb_pixel col) {
 std::string Sphere::toString () {
   std::ostringstream ss;
 
-  ss << "center " << center.toString() << " radius: " << r;
+  ss << "Circle: center " << center.toString() << " radius: " << r;
 
   return ss.str();
 };
@@ -93,10 +93,11 @@ Intersection* Sphere::getPosInter(Ray ray) {
    *
    */
 
+  //std::cout << "t1: " << t1 << " t2: " << t2 << std::endl;
+
   if(t2 > 0) {
-    
     return new Intersection(this, ray.pos(t2));
-  } else if(t1 > 0) {
+  } else if(t1 > epsilon) {
     return new Intersection(this, ray.pos(t1));
   } else {
     return NULL;
@@ -143,10 +144,13 @@ Intersection* Sphere::getInter(Ray ray) {
    *
    */
 
+
+  //using epsilon to check for already being on the surface
+
+
   if(t2 > 0) {
-    
     return new Intersection(this, ray.pos(t2));
-  } else if(t1 > 0) {
+  } else if(t1 > epsilon) {
     return new Intersection(this, ray.pos(t1));
   } else {
     return NULL;
@@ -170,7 +174,7 @@ bool Sphere::hasPositiveInter(Ray ray) {
   float t1 = (-b + descriminant)/(2 * a);
 
   return descriminant > 0 && t1 > 0;
-}
+};
 
 
 bool Sphere::doesIntersect(Ray ray) {

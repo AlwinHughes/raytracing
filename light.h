@@ -10,6 +10,7 @@ class Light {
     Vector3 pos;
     Light(Vector3, float);
     Light(Vector3);
+    std::string toString();
 };
 
 #endif

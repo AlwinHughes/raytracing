@@ -8,14 +8,21 @@ FixedSceene::FixedSceene(int n) {
   renderable_objs = new Renderable*[n];
 };
 
+FixedSceene::FixedSceene(Renderable** objs, int n) {
+  curr_num_obj = n;
+  max_num_objs = n;
+  renderable_objs = objs;
+};
+
 
 void FixedSceene::addRenderable(Renderable* rend) {
   if(curr_num_obj < max_num_objs) {
     renderable_objs[curr_num_obj] = rend;
+    curr_num_obj++;
   }
 };
 
-void FixedSceene::setLight(Light * l) {
+void FixedSceene::setLight(Light* l) {
   light = l;
 };
 
@@ -42,24 +49,68 @@ Intersection* FixedSceene::getClosestInter(Ray ray, Vector3 cam_pos) {
       continue;
     }
 
-    if((inter->pos - cam_pos).squareDist() < curr_dist_2) {
+    float dist = (inter->pos - cam_pos).squareDist();
+
+    if(dist < curr_dist_2) {
       best = inter;
+      curr_dist_2 = dist;
     }
 
-    delete inter;
+    //delete inter;
   }
 
   return best;
 };
 
 bool FixedSceene::isInShade(Intersection* inter) {
+  Intersection* new_inter;
+  float inter_to_light_dist = (inter->pos - light->pos).squareDist();
   for(int i = 0; i < curr_num_obj; i ++) {
-    if(renderable_objs[i] != inter->hit_object && renderable_objs[i]->hasPositiveInter(Ray(inter->pos,light->pos - inter->pos))) {
-      return true;
+    //checks if other objects occule the light
+
+    
+    if(renderable_objs[i] != inter->hit_object){
+      new_inter = renderable_objs[i]->getPosInter(Ray(light->pos, inter->pos - light->pos));
+
+      /*
+      if(new_inter) {
+        std::cout << "new inter pos " << new_inter->pos.toString() << std::endl;
+      } else {
+        std::cout << "no intersection" << std::endl;
+      }
+      */
+
+      if(new_inter && (new_inter->pos - light->pos).squareDist() < inter_to_light_dist) {
+       //std::cout << "occluded by: " << renderable_objs[i]->toString() << std::endl;
+        return true;
+      }
+
+      delete new_inter;
+
     }
   }
-  return false;
-}
+
+  //check if the object occuldes its self
+  //currently not working for spheres
+  
+  Intersection* self_inter = inter->hit_object->getPosInter(Ray(light->pos, inter->pos - light->pos));
+  
+  
+  
+  if(self_inter &&  self_inter->pos.Dot(  light->pos * -1.0) < 0.0000000001) {
+    //when we move from the light to the intersection
+    //the closest point of intersection is the same
+    //as the original point of intersection
+    //std::cout << "not occluded" << std::endl;
+    delete self_inter;
+    return false;
+  }
+  
+
+  delete self_inter;
+  //std:: cout << "self occluded" << std::endl;
+  return true;
+};
 
 std::string FixedSceene::toString() {
 

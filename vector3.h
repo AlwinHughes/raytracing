@@ -35,7 +35,6 @@ struct Vector3 {
     return Vector3(x* s, y * s, z *s);
   };
 
-
   std::string toString() {
     std::ostringstream ss;
     ss << "(" << x << "," << y << "," << z << ")";

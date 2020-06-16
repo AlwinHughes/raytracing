@@ -14,6 +14,7 @@ class Ray {
       start = s;
       grad = g;
     };
+    bool containsPoint(Vector3);
 
 
 };

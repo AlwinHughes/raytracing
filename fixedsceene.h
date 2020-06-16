@@ -17,7 +17,7 @@ class FixedSceene {
   public:
     int max_num_objs;
     FixedSceene(int);
-    //FixedSceene(Renderable, int);
+    FixedSceene(Renderable**, int);
     void addRenderable(Renderable*);
     void setLight(Light*);
     bool hasPositiveInter(Ray);

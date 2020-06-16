@@ -12,6 +12,8 @@ class Sphere : public Renderable {
   private:
     Vector3 center;
     float r;
+    //used for detecting self intersection
+    float epsilon = 0.0000001;
 
   public:
     std::string toString();
