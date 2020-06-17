@@ -16,7 +16,7 @@
 using namespace png;
 using namespace std;
 
-void imageTracing() {
+void imageTracing(bool write = true) {
 
   fstream file;
 
@@ -218,13 +218,16 @@ void imageTracing() {
     }
   }
 
-  image.write("./images/image" + count + ".png");
+  if(write){
 
-  ofstream ofile;
-  ofile.open("count", ofstream::trunc);
-  ofile << count;
-  ofile.close();
+    image.write("./images/image" + count + ".png");
 
-  cout << "./images/image" << count << ".png";
+    ofstream ofile;
+    ofile.open("count", ofstream::trunc);
+    ofile << count;
+    ofile.close();
+
+    cout << "./images/image" << count << ".png";
+  }
 
 };
