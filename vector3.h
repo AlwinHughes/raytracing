@@ -1,4 +1,5 @@
 #include <sstream>
+#include <math.h>
 
 #ifndef VECTOR3
 #define VECTOR3
@@ -41,6 +42,15 @@ struct Vector3 {
     return ss.str();
 
   };
+
+  inline Vector3 invert() const {
+    return Vector3(-x, -y, -z);
+  }
+
+  inline Vector3 normalize() const {
+    float inv = 1/sqrt(x*x + y*y + z*z);
+    return Vector3(x*inv, y * inv, z*inv);
+  }
 
   inline float squareDist() {
     return x*x + y*y + z*z;

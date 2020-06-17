@@ -27,10 +27,7 @@ class Sphere : public Renderable {
     Sphere(Vector3, float);
     Sphere(Vector3, float, png::rgb_pixel);
     Sphere(Vector3, float, png::rgb_pixel,bool, bool);
-    png::rgb_pixel getColAtInter(Intersection*, Ray, FixedSceene*);
+    virtual png::rgb_pixel getColAtInter(Intersection*, Ray, FixedSceene*);
 
-
-
- 
 };
 #endif

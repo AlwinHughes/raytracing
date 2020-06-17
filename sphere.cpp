@@ -104,9 +104,13 @@ Intersection* Sphere::getPosInter(Ray ray) {
   //std::cout << "t1: " << t1 << " t2: " << t2 << std::endl;
 
   if(t2 > 0) {
-    return new Intersection(this, ray.pos(t2));
+    Vector3 p = ray.pos(t2);
+    //return new Intersection(this, p);
+    return new Intersection(this, p, (p - center).normalize());
   } else if(t1 > epsilon) {
-    return new Intersection(this, ray.pos(t1));
+    Vector3 p = ray.pos(t1);
+    //return new Intersection(this, p);
+    return new Intersection(this, p, (p - center).normalize());
   } else {
     return NULL;
   }

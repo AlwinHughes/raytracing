@@ -1,7 +1,7 @@
 CXX = g++
 
-entry : entry.o console_tracing.o image_tracing.o ray.o sphere.o spheresceene.o plane.o light.o fixedsceene.o renderable.o intersection.o
-	$(CXX) -o entry entry.o ray.o sphere.o spheresceene.o plane.o light.o fixedsceene.o renderable.o intersection.o `libpng-config --ldflags`
+entry : entry.o console_tracing.o image_tracing.o ray.o sphere.o spheresceene.o plane.o light.o fixedsceene.o renderable.o intersection.o sphere2.o rsphere.o
+	$(CXX) -o entry entry.o ray.o sphere.o spheresceene.o plane.o light.o fixedsceene.o renderable.o intersection.o sphere2.o rsphere.o `libpng-config --ldflags`
 
 entry.o : entry.cpp image_tracing.o console_tracing.o
 	$(CXX) -c entry.cpp `libpng-config --cflags`
@@ -31,6 +31,12 @@ ray.o : ray.cpp ray.h
 
 sphere.o : sphere.cpp sphere.h
 	$(CXX) -c sphere.cpp
+
+rsphere.o : rsphere.cpp rsphere.h
+	$(CXX) -c rsphere.cpp
+
+sphere2.o : sphere2.cpp sphere2.h
+	$(CXX) -c sphere2.cpp
 
 plane.o : plane.cpp plane.h
 	$(CXX) -c plane.cpp

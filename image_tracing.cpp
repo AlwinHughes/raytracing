@@ -1,5 +1,7 @@
 #include "ray.h"
 #include "sphere.h"
+#include "sphere2.h"
+#include "rsphere.h"
 #include "plane.h"
 #include "spheresceene.h"
 #include "vector3.h"
@@ -26,10 +28,7 @@ void imageTracing(bool write = true) {
   file.close();
 
   count = to_string((stoi(count) + 1));
-
-  cout << "count : "<< count <<  endl;
-
-  int img_width = 2000;
+cout << "count : "<< count <<  endl; int img_width = 2000;
   int img_height = 1000;
   
   float dz = 0.001;
@@ -87,41 +86,45 @@ void imageTracing(bool write = true) {
   p1->shade_pixel_col = rgb_pixel(70,70,70);
   sceene.addRenderable(p1);
 
-  Sphere* s1 = new Sphere(Vector3(10,-1,0),0.5, rgb_pixel(200,0,0), true, true);
+  Sphere* s1 = new Sphere2(Vector3(10,-1,0),0.5, rgb_pixel(200,0,0), true, true);
   s1->shade_pixel_col = rgb_pixel(100,0,0);
   sceene.addRenderable(s1);
 
-  Sphere* s2 = new Sphere(Vector3(15,-1,5),0.5, rgb_pixel(200,0,0));
+  Sphere* s2 = new Sphere2(Vector3(15,-1,5),0.5, rgb_pixel(200,0,0));
   s2->shade_pixel_col = rgb_pixel(100,0,0);
   sceene.addRenderable(s2);
 
-  Sphere* s3 = new Sphere(Vector3(15,-1,-5),0.5, rgb_pixel(200,0,0), false, false);
+  Sphere* s3 = new Sphere2(Vector3(15,-1,-5),0.5, rgb_pixel(200,0,0), false, false);
   s3->shade_pixel_col = rgb_pixel(100,0,0);
   sceene.addRenderable(s3);
 
-  Sphere* s4 = new Sphere(Vector3(25,-1,0),0.5, rgb_pixel(200,0,0));
+  Sphere* s4 = new Sphere2(Vector3(25,-1,0),0.5, rgb_pixel(200,0,0));
   s4->shade_pixel_col = rgb_pixel(100,0,0);
   sceene.addRenderable(s4);
 
-  Sphere* s5 = new Sphere(Vector3(15,-3,0),0.5, rgb_pixel(200,0,200));
+  Sphere* s5 = new Sphere2(Vector3(15,-3,0),0.5, rgb_pixel(200,0,200));
   s5->shade_pixel_col = rgb_pixel(100,0,100);
   sceene.addRenderable(s5);
 
-  Sphere* s6 = new Sphere(Vector3(15,1,0),3, rgb_pixel(100,200,200));
+  Sphere* s6 = new Sphere2(Vector3(15,1,0),3, rgb_pixel(100,200,200));
   s6->shade_pixel_col = rgb_pixel(50,100,100);
   sceene.addRenderable(s6);
 
-  Sphere* s7 = new Sphere(Vector3(15,1,8),3, rgb_pixel(100,200,200));
+  Sphere* s7 = new Sphere2(Vector3(20,1,8),3, rgb_pixel(100,200,200));
   s7->shade_pixel_col = rgb_pixel(50,100,100);
   sceene.addRenderable(s7);
 
-  Sphere* s8 = new Sphere(Vector3(15,-4,-3),0.2, rgb_pixel(100,0,200));
+  Sphere* s8 = new Sphere2(Vector3(15,-4,-3),0.2, rgb_pixel(100,0,200));
   s8->shade_pixel_col = rgb_pixel(50,0,100);
   sceene.addRenderable(s8);
 
-  Sphere* s9 = new Sphere(Vector3(15,-10,-5),2, rgb_pixel(0,200,100), true, true);
+  Sphere* s9 = new Sphere2(Vector3(15,-10,-5),2, rgb_pixel(0,200,100), true, true);
   s9->shade_pixel_col = rgb_pixel(0,100,50);
   sceene.addRenderable(s9);
+
+  Sphere* s10 = new RSphere(Vector3(70,-3,4),20);
+  sceene.addRenderable(s10);
+
 
   Plane* p2 = new Plane(Vector3(0,0,1), -8, rgb_pixel(100,100,150));
   p2->shade_pixel_col = rgb_pixel(50,50,75);
@@ -163,6 +166,11 @@ void imageTracing(bool write = true) {
 
   Intersection* inter;
 
+  rgb_pixel pixel = rgb_pixel(0.2,30,40);
+
+  cout << "pixel red " << (int) pixel.red << endl;
+
+  //return;
 
 
   rgb_pixel shadow_col(10,10,10);
@@ -189,7 +197,7 @@ void imageTracing(bool write = true) {
       delete inter;
     }
 
-    if(i % 10 == 0) {
+    if(i % 200 == 0) {
       cout << "finished column: " << i << endl;
     }
   }

@@ -62,6 +62,39 @@ Intersection* FixedSceene::getClosestInter(Ray ray, Vector3 cam_pos) {
   return best;
 };
 
+Intersection* FixedSceene::getClosestInter(Ray ray, Vector3 cam_pos, Renderable* avoid) {
+
+  float curr_dist_2 = std::numeric_limits<float>::max();
+
+  Intersection* inter;
+  Intersection* best = NULL;
+
+  for(int i = 0; i < curr_num_obj; i++) {
+    if(avoid == renderable_objs[i]) {
+      //we want to avoid this specific object
+      continue;
+    }
+
+    inter = renderable_objs[i]->getPosInter(ray);
+
+    if(inter == NULL) {
+      continue;
+    }
+
+    float dist = (inter->pos - cam_pos).squareDist();
+
+    if(dist < curr_dist_2) {
+      best = inter;
+      curr_dist_2 = dist;
+    } else {
+      delete inter;
+    }
+  }
+
+  return best;
+};
+
+
 bool FixedSceene::isInShade(Intersection* inter) {
 
 
@@ -123,4 +156,8 @@ std::string FixedSceene::toString() {
 
 rgb_pixel FixedSceene::getColAtInter(Intersection* inter, Ray insident_ray) {
   return inter->hit_object->getColAtInter(inter, insident_ray, this);
+}
+
+Ray FixedSceene::getRayFromLight(Vector3 target) {
+  return Ray(light->pos, target - light->pos);
 }
