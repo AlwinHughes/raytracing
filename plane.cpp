@@ -51,7 +51,7 @@ Intersection* Plane::getPosInter(Ray ray) {
     return NULL;
   }
 
-  return new Intersection(this, ray.pos(t));
+  return new Intersection(this, ray.pos(t), normal);
 }
 
 

@@ -7,7 +7,7 @@
 #include <png++/png.hpp>
 
 class Plane : public Renderable {
-  private:
+  protected:
     Vector3 normal;
     float d;
 
@@ -21,7 +21,7 @@ class Plane : public Renderable {
     bool hasPositiveInter(Ray);
     Intersection* getPosInter(Ray);
     Vector3 intersectRay(Ray);
-    png::rgb_pixel getColAtInter(Intersection*, Ray, FixedSceene*);
+    virtual png::rgb_pixel getColAtInter(Intersection*, Ray, FixedSceene*);
 
 };
 #endif

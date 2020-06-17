@@ -3,6 +3,7 @@
 #include "sphere2.h"
 #include "rsphere.h"
 #include "plane.h"
+#include "mplane.h"
 #include "spheresceene.h"
 #include "vector3.h"
 #include "fixedsceene.h"
@@ -126,7 +127,7 @@ cout << "count : "<< count <<  endl; int img_width = 2000;
   sceene.addRenderable(s10);
 
 
-  Plane* p2 = new Plane(Vector3(0,0,1), -8, rgb_pixel(100,100,150));
+  Plane* p2 = new MPlane(Vector3(0,0,1), -8, rgb_pixel(100,100,150));
   p2->shade_pixel_col = rgb_pixel(50,50,75);
   sceene.addRenderable(p2);
 
