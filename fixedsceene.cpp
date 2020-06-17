@@ -70,6 +70,7 @@ bool FixedSceene::isInShade(Intersection* inter) {
 
     
     if(renderable_objs[i] != inter->hit_object){
+      //shoots ray from the light to the intersection
       new_inter = renderable_objs[i]->getPosInter(Ray(light->pos, inter->pos - light->pos));
 
       /*
@@ -80,8 +81,10 @@ bool FixedSceene::isInShade(Intersection* inter) {
       }
       */
 
-      if(new_inter && (new_inter->pos - light->pos).squareDist() < inter_to_light_dist) {
+//      if(new_inter && (new_inter->pos - light->pos).squareDist() < inter_to_light_dist) {
+        if(new_inter && (new_inter->pos - light->pos).squareDist() < inter_to_light_dist) {
        //std::cout << "occluded by: " << renderable_objs[i]->toString() << std::endl;
+        delete new_inter;
         return true;
       }
 
@@ -92,8 +95,26 @@ bool FixedSceene::isInShade(Intersection* inter) {
 
   //check if the object occuldes its self
   //currently not working for spheres
+  //return false;
+
+
+  new_inter = inter->hit_object->getPosInter(Ray(light->pos, inter->pos - light->pos));
+
+  if(new_inter && (new_inter->pos - inter->pos).squareDist() > 0.01) {
+    
+    delete new_inter;
+    //self occlues 
+    return true;
+
+  }
+
+  delete new_inter;
+  //self object is not occluded
+  return false;
+  
   
   Intersection* self_inter = inter->hit_object->getPosInter(Ray(light->pos, inter->pos - light->pos));
+  
   
   
   

@@ -11,11 +11,23 @@
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
 
 using namespace png;
 using namespace std;
 
 void imageTracing() {
+
+  fstream file;
+
+  file.open("count", ofstream::in);
+  string count;
+  getline(file, count);
+  file.close();
+
+  count = to_string((stoi(count) + 1));
+
+  cout << "count : "<< count <<  endl;
 
   int img_width = 2000;
   int img_height = 1000;
@@ -29,6 +41,7 @@ void imageTracing() {
 
   image<rgb_pixel> image (img_width, img_height);
 
+  
   /*
   FixedSceene sceene(10);
 
@@ -62,6 +75,9 @@ void imageTracing() {
 
   sceene.setLight(light);
   */
+
+  
+  
   
   FixedSceene sceene(20);
 
@@ -101,9 +117,11 @@ void imageTracing() {
 
   Plane* p2 = new Plane(Vector3(0,0,1), -8, rgb_pixel(100,100,150));
   sceene.addRenderable(p2);
+  
 
 
   /*
+  
   FixedSceene sceene(5);
   Sphere* ts1 = new Sphere(Vector3(10,0,5), 1, rgb_pixel(255,0,0));
   sceene.addRenderable(ts1);
@@ -116,6 +134,8 @@ void imageTracing() {
 
   Sphere* loc = new Sphere(Vector3(10,-1,3.5), 0.1, rgb_pixel(255,0,0));
   sceene.addRenderable(loc);
+
+
 
   Intersection* test_inter = new Intersection(tp1, Vector3(10,0,3.5));
 
@@ -198,6 +218,13 @@ void imageTracing() {
     }
   }
 
+  image.write("./images/image" + count + ".png");
 
-  image.write("image.png");
+  ofstream ofile;
+  ofile.open("count", ofstream::trunc);
+  ofile << count;
+  ofile.close();
+
+  cout << "./images/image" << count << ".png";
+
 };
