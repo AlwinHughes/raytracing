@@ -16,6 +16,14 @@ Sphere::Sphere(Vector3 c, float ra, png::rgb_pixel col) {
   pixel_col = col;
 };
 
+Sphere::Sphere(Vector3 c, float ra, png::rgb_pixel col, bool can_occ, bool can_self_occ) {
+  center = c;
+  r = ra;
+  pixel_col = col;
+  can_occlude = can_occ;
+  can_self_occulde = can_self_occ;
+};
+
 
 std::string Sphere::toString () {
   std::ostringstream ss;
@@ -194,5 +202,17 @@ bool Sphere::doesIntersect(Ray ray) {
   return descriminant >= 0;
 
 }
+
+png::rgb_pixel Sphere::getColAtInter(Intersection* inter, Ray insident_ray, FixedSceene* sceene) {
+
+  if(sceene->isInShade(inter)) {
+    return shade_pixel_col;
+  } else {
+    return pixel_col;
+  }
+
+
+}
+
 
 

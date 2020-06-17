@@ -4,6 +4,9 @@
 #include <sstream>
 #include "vector3.h"
 #include "intersection.h"
+#include <png++/png.hpp>
+
+using namespace png;
 
 class Renderable;
 

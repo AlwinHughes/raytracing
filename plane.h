@@ -21,6 +21,7 @@ class Plane : public Renderable {
     bool hasPositiveInter(Ray);
     Intersection* getPosInter(Ray);
     Vector3 intersectRay(Ray);
+    png::rgb_pixel getColAtInter(Intersection*, Ray, FixedSceene*);
 
 };
 #endif

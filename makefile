@@ -20,6 +20,9 @@ renderable.o : renderable.cpp renderable.h
 fixedsceene.o : fixedsceene.h fixedsceene.cpp
 	$(CXX) -c fixedsceene.cpp
 
+fixedsceene2.o : fixedsceene2.cpp fixedsceene2.h
+	$(CXX) -c fixedsceene2.cpp
+
 light.o : light.cpp light.h
 	$(CXX) -c light.cpp
 
@@ -37,4 +40,3 @@ spheresceene.o : spheresceene.cpp spheresceene.h
 
 intersection.o : intersection.cpp intersection.h 
 	$(CXX) -c intersection.cpp
-

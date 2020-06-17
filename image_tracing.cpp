@@ -76,52 +76,61 @@ void imageTracing(bool write = true) {
   sceene.setLight(light);
   */
 
-  
-  
-  
+
+
   FixedSceene sceene(20);
 
-  Light* light = new Light(Vector3(15,-10,0));
+  Light* light = new Light(Vector3(15,-50,0));
   sceene.setLight(light);
 
   Plane* p1 = new Plane(Vector3(0,1,0), 0, rgb_pixel(150,150,150));
+  p1->shade_pixel_col = rgb_pixel(70,70,70);
   sceene.addRenderable(p1);
 
-  Sphere* s1 = new Sphere(Vector3(10,-1,0),0.5, rgb_pixel(200,0,0));
+  Sphere* s1 = new Sphere(Vector3(10,-1,0),0.5, rgb_pixel(200,0,0), true, true);
+  s1->shade_pixel_col = rgb_pixel(100,0,0);
   sceene.addRenderable(s1);
 
   Sphere* s2 = new Sphere(Vector3(15,-1,5),0.5, rgb_pixel(200,0,0));
+  s2->shade_pixel_col = rgb_pixel(100,0,0);
   sceene.addRenderable(s2);
 
-  Sphere* s3 = new Sphere(Vector3(15,-1,-5),0.5, rgb_pixel(200,0,0));
+  Sphere* s3 = new Sphere(Vector3(15,-1,-5),0.5, rgb_pixel(200,0,0), false, false);
+  s3->shade_pixel_col = rgb_pixel(100,0,0);
   sceene.addRenderable(s3);
 
   Sphere* s4 = new Sphere(Vector3(25,-1,0),0.5, rgb_pixel(200,0,0));
+  s4->shade_pixel_col = rgb_pixel(100,0,0);
   sceene.addRenderable(s4);
 
   Sphere* s5 = new Sphere(Vector3(15,-3,0),0.5, rgb_pixel(200,0,200));
+  s5->shade_pixel_col = rgb_pixel(100,0,100);
   sceene.addRenderable(s5);
 
   Sphere* s6 = new Sphere(Vector3(15,1,0),3, rgb_pixel(100,200,200));
+  s6->shade_pixel_col = rgb_pixel(50,100,100);
   sceene.addRenderable(s6);
 
   Sphere* s7 = new Sphere(Vector3(15,1,8),3, rgb_pixel(100,200,200));
+  s7->shade_pixel_col = rgb_pixel(50,100,100);
   sceene.addRenderable(s7);
 
   Sphere* s8 = new Sphere(Vector3(15,-4,-3),0.2, rgb_pixel(100,0,200));
+  s8->shade_pixel_col = rgb_pixel(50,0,100);
   sceene.addRenderable(s8);
 
-  Sphere* s9 = new Sphere(Vector3(15,-10,-5),2, rgb_pixel(0,200,100));
+  Sphere* s9 = new Sphere(Vector3(15,-10,-5),2, rgb_pixel(0,200,100), true, true);
+  s9->shade_pixel_col = rgb_pixel(0,100,50);
   sceene.addRenderable(s9);
 
-
   Plane* p2 = new Plane(Vector3(0,0,1), -8, rgb_pixel(100,100,150));
+  p2->shade_pixel_col = rgb_pixel(50,50,75);
   sceene.addRenderable(p2);
-  
+
 
 
   /*
-  
+
   FixedSceene sceene(5);
   Sphere* ts1 = new Sphere(Vector3(10,0,5), 1, rgb_pixel(255,0,0));
   sceene.addRenderable(ts1);
@@ -154,38 +163,6 @@ void imageTracing(bool write = true) {
 
   Intersection* inter;
 
-  //return;
-
-  /*
-  inter = sceene.getClosestInter(Ray(Vector3(2.2,1,10), Vector3(1,0,0)),camera_start);
-
-
-  if(!inter) {
-    cout << "is null" << endl;
-  } else {
-
-    cout << inter->toString() << endl;
-
-    Ray light_ray(inter->pos, light->pos - inter->pos);
-    cout << light_ray.toString() << endl;
-
-    cout << "in line: " << light_ray.containsPoint(light->pos) << endl;
-
-    Intersection* self_inter = s1->getPosInter(light_ray);
-
-    if(self_inter) {
-      cout << "self inter: " <<self_inter->toString() << endl;
-    } else {
-      cout << "no self intersection" << endl;
-    }
-  }
-  */
-
-
-
-
-//  cout << "are they the same ? " << cam_pos.Equal(camera_start) << endl;
-
 
 
   rgb_pixel shadow_col(10,10,10);
@@ -200,21 +177,20 @@ void imageTracing(bool write = true) {
 
       inter = sceene.getClosestInter(ray, cam_pos);
 
-
       if(inter != NULL) {
         //light has hit an object
 
-        if(sceene.isInShade(inter)) {
-          //in shaddow. set the shadow using the predefined shadow color
-          image[j][i] = shadow_col;
-        } else {
-          image[j][i] = inter->hit_object->pixel_col;
-        }
+        image[j][i] = sceene.getColAtInter(inter, ray);
+
       } else {
-        image[j][i] = rgb_pixel(0,0,0);
+        image[j][i] = sceene.default_color;
       }
 
       delete inter;
+    }
+
+    if(i % 10 == 0) {
+      cout << "finished column: " << i << endl;
     }
   }
 

@@ -54,9 +54,9 @@ Intersection* FixedSceene::getClosestInter(Ray ray, Vector3 cam_pos) {
     if(dist < curr_dist_2) {
       best = inter;
       curr_dist_2 = dist;
+    } else {
+      delete inter;
     }
-
-    //delete inter;
   }
 
   return best;
@@ -72,7 +72,7 @@ bool FixedSceene::isInShade(Intersection* inter) {
     //checks if other objects occule the light
 
     
-    if(renderable_objs[i] != inter->hit_object){
+    if(renderable_objs[i]->can_occlude && renderable_objs[i] != inter->hit_object){
       //shoots ray from the light to the intersection
       light_inter = renderable_objs[i]->getPosInter(Ray(light->pos, inter->pos - light->pos));
 
@@ -91,6 +91,8 @@ bool FixedSceene::isInShade(Intersection* inter) {
     //shooting a ray from the light to the object and 
     //checking that difference bewteen the new intersection 
     //and first intersection isn't too big
+
+
   light_inter = inter->hit_object->getPosInter(Ray(light->pos, inter->pos - light->pos));
 
   if(light_inter && (light_inter->pos - inter->pos).squareDist() > 0.00001) {
@@ -119,7 +121,6 @@ std::string FixedSceene::toString() {
   return ss.str();
 }
 
-
-
-
-
+rgb_pixel FixedSceene::getColAtInter(Intersection* inter, Ray insident_ray) {
+  return inter->hit_object->getColAtInter(inter, insident_ray, this);
+}
