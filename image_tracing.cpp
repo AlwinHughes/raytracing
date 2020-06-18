@@ -4,6 +4,7 @@
 #include "rsphere.h"
 #include "plane.h"
 #include "mplane.h"
+#include "checkered_plane.h"
 #include "spheresceene.h"
 #include "vector3.h"
 #include "fixedsceene.h"
@@ -83,7 +84,7 @@ cout << "count : "<< count <<  endl; int img_width = 2000;
   Light* light = new Light(Vector3(15,-50,0));
   sceene.setLight(light);
 
-  Plane* p1 = new Plane(Vector3(0,1,0), 0, rgb_pixel(150,150,150));
+  Plane* p1 = new CPlane(Vector3(0,1,0), 0, rgb_pixel(150,150,150));
   p1->shade_pixel_col = rgb_pixel(70,70,70);
   sceene.addRenderable(p1);
 
@@ -123,11 +124,11 @@ cout << "count : "<< count <<  endl; int img_width = 2000;
   s9->shade_pixel_col = rgb_pixel(0,100,50);
   sceene.addRenderable(s9);
 
-  Sphere* s10 = new RSphere(Vector3(70,-3,4),20);
+  Sphere* s10 = new RSphere(Vector3(10,1,4),3);
   sceene.addRenderable(s10);
 
 
-  Plane* p2 = new MPlane(Vector3(0,0,1), -8, rgb_pixel(100,100,150));
+  Plane* p2 = new Plane(Vector3(0,0,1), -8, rgb_pixel(100,100,150));
   p2->shade_pixel_col = rgb_pixel(50,50,75);
   sceene.addRenderable(p2);
 

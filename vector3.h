@@ -43,6 +43,10 @@ struct Vector3 {
 
   };
 
+  inline Vector3 cross(const Vector3& A) const {
+    return Vector3(y * A.z - A.y * z, A.x * z - A.z * x, x * A.y - A.x * y);
+  }
+
   inline Vector3 invert() const {
     return Vector3(-x, -y, -z);
   }
