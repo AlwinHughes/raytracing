@@ -154,7 +154,7 @@ std::string FixedSceene::toString() {
   return ss.str();
 }
 
-rgb_pixel FixedSceene::getColAtInter(Intersection* inter, Ray insident_ray) {
+LightCol FixedSceene::getColAtInter(Intersection* inter, Ray insident_ray) {
   return inter->hit_object->getColAtInter(inter, insident_ray, this);
 }
 

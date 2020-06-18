@@ -3,6 +3,7 @@
 #include "plane.h"
 #include "spheresceene.h"
 #include "vector3.h"
+#include "light_col.h"
 #include <iostream>
 
 
@@ -33,21 +34,21 @@ int consoleTracing() {
   Vector3 sphere_center(4,0,0);
   float sphere_rad = 1;
 
-  Sphere sphere(sphere_center, sphere_rad, rgb_pixel(0,255,0));
+  Sphere sphere(sphere_center, sphere_rad);
 
 
   SphereSceene sceene(10);
   sceene.addSphere(&sphere);
 
-  Sphere* s2 = new Sphere(Vector3(1,0.3,0.3), 0.2, rgb_pixel(255,0,0));
+  Sphere* s2 = new Sphere(Vector3(1,0.3,0.3), 0.2, LightCol(1.0,0,0));
   s2->char_col = '~';
   sceene.addSphere(s2);
 
-  Sphere* s3 = new Sphere(Vector3(4,-2, -0.3), 2, rgb_pixel(0,0,255));
+  Sphere* s3 = new Sphere(Vector3(4,-2, -0.3), 2, LightCol(0,0,0.1));
   s3->char_col = 'O';
   sceene.addSphere(s3);
 
-  Sphere* s4 = new Sphere(Vector3(0.5,0,0), 0.01, rgb_pixel(100,100,100));
+  Sphere* s4 = new Sphere(Vector3(0.5,0,0), 0.01, LightCol(0.39,0.39,0.39));
   s4->char_col = '*';
   sceene.addSphere(s4);
 

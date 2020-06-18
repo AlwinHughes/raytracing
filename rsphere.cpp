@@ -1,6 +1,6 @@
 #include "rsphere.h"
 
-png::rgb_pixel RSphere::getColAtInter(Intersection* inter, Ray insident_ray, FixedSceene* sceene) {
+LightCol RSphere::getColAtInter(Intersection* inter, Ray insident_ray, FixedSceene* sceene) {
 
   //std::cout << "found rsphere" << std::endl;
 
@@ -12,7 +12,7 @@ png::rgb_pixel RSphere::getColAtInter(Intersection* inter, Ray insident_ray, Fix
   Intersection* reflection_hit = sceene->getClosestInter(reflection, inter->pos, this);
 
   if(reflection_hit) {
-    return sceene->getColAtInter(reflection_hit, reflection);
+    return inter->hit_object->pixel_col.reflect(sceene->getColAtInter(reflection_hit, reflection));
   } else {
     return sceene->default_color;
   }

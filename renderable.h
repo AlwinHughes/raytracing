@@ -7,6 +7,7 @@
 #include <png++/png.hpp>
 #include "intersection.h"
 #include "fixedsceene.h"
+#include "light_col.h"
 
 class FixedSceene;
 
@@ -19,11 +20,11 @@ class Renderable {
     char char_col = '#';
     bool can_occlude = true;
     bool can_self_occulde = true;
-    png::rgb_pixel pixel_col;
-    png::rgb_pixel shade_pixel_col;
+    LightCol pixel_col;
+    LightCol shade_pixel_col;
     Renderable(){};
     //std::string toString();
-    virtual png::rgb_pixel getColAtInter(Intersection*, Ray, FixedSceene*) = 0;
+    virtual LightCol getColAtInter(Intersection*, Ray, FixedSceene*) = 0;
 
 };
 #endif

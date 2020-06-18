@@ -6,6 +6,7 @@
 #include "intersection.h"
 #include "renderable.h"
 #include "light.h"
+#include "light_col.h"
 #include <png++/png.hpp>
 
 using namespace png;
@@ -28,8 +29,8 @@ class FixedSceene {
     Intersection* getClosestInter(Ray, Vector3,Renderable*);
     bool isInShade(Intersection*);
     std::string toString();
-    rgb_pixel default_color = rgb_pixel(0,0,0);
-    rgb_pixel getColAtInter(Intersection*,Ray);
+    LightCol default_color = LightCol(0,0,0);
+    LightCol getColAtInter(Intersection*,Ray);
     Ray getRayFromLight(Vector3);
 
 };

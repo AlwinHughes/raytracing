@@ -1,7 +1,7 @@
 #include "mplane.h"
 
 
-png::rgb_pixel MPlane::getColAtInter(Intersection* inter, Ray insident_ray, FixedSceene* sceene) {
+LightCol MPlane::getColAtInter(Intersection* inter, Ray insident_ray, FixedSceene* sceene) {
 
 
   Ray reflection = Ray(
@@ -12,7 +12,7 @@ png::rgb_pixel MPlane::getColAtInter(Intersection* inter, Ray insident_ray, Fixe
   Intersection* reflection_hit = sceene->getClosestInter(reflection, inter->pos, this);
 
   if(reflection_hit) {
-    return sceene->getColAtInter(reflection_hit, reflection);
+    return pixel_col.reflect(sceene->getColAtInter(reflection_hit, reflection));
   } else {
     return sceene->default_color;
   }

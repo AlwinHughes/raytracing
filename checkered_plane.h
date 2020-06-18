@@ -6,16 +6,17 @@
 #include "intersection.h"
 #include "renderable.h"
 #include "plane.h"
+#include "light_col.h"
 #include <png++/png.hpp>
 
 class CPlane : public Plane {
 
   private:
-    png::rgb_pixel checkered_col = png::rgb_pixel(0,0,0);
+    LightCol checkered_col = LightCol(0,0,0);
 
   public:
-    CPlane(Vector3 n, float s, png::rgb_pixel p) : Plane(n,s, p) {};
-    png::rgb_pixel getColAtInter(Intersection*, Ray, FixedSceene*);
+    CPlane(Vector3 n, float s, LightCol c) : Plane(n,s, c) {};
+    LightCol  getColAtInter(Intersection*, Ray, FixedSceene*);
 
 };
 #endif

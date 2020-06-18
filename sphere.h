@@ -5,6 +5,7 @@
 #include "ray.h"
 #include "intersection.h"
 #include "renderable.h"
+#include "light_col.h"
 #include "fixedsceene.h"
 #include <png++/png.hpp>
 
@@ -25,9 +26,9 @@ class Sphere : public Renderable {
     Intersection* getInter(Ray);
     Sphere();
     Sphere(Vector3, float);
-    Sphere(Vector3, float, png::rgb_pixel);
-    Sphere(Vector3, float, png::rgb_pixel,bool, bool);
-    virtual png::rgb_pixel getColAtInter(Intersection*, Ray, FixedSceene*);
+    Sphere(Vector3, float, LightCol);
+    Sphere(Vector3, float, LightCol,bool, bool);
+    virtual LightCol getColAtInter(Intersection*, Ray, FixedSceene*);
 
 };
 #endif

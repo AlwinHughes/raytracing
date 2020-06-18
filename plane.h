@@ -5,6 +5,7 @@
 #include "intersection.h"
 #include "renderable.h"
 #include <png++/png.hpp>
+#include "light_col.h"
 
 class Plane : public Renderable {
   protected:
@@ -12,7 +13,7 @@ class Plane : public Renderable {
     float d;
 
   public:
-    Plane(Vector3 n, float s, png::rgb_pixel pixel) {
+    Plane(Vector3 n, float s, LightCol pixel) {
       normal = n;
       d = s;
       pixel_col = pixel;
@@ -21,7 +22,7 @@ class Plane : public Renderable {
     bool hasPositiveInter(Ray);
     Intersection* getPosInter(Ray);
     Vector3 intersectRay(Ray);
-    virtual png::rgb_pixel getColAtInter(Intersection*, Ray, FixedSceene*);
+    virtual LightCol getColAtInter(Intersection*, Ray, FixedSceene*);
 
 };
 #endif

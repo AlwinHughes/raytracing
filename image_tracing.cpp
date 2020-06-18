@@ -30,7 +30,8 @@ void imageTracing(bool write = true) {
   file.close();
 
   count = to_string((stoi(count) + 1));
-cout << "count : "<< count <<  endl; int img_width = 2000;
+cout << "count : "<< count <<  endl; 
+  int img_width = 2000;
   int img_height = 1000;
   
   float dz = 0.001;
@@ -46,32 +47,32 @@ cout << "count : "<< count <<  endl; int img_width = 2000;
   /*
   FixedSceene sceene(10);
 
-  //Sphere sphere(sphere_center, sphere_rad, rgb_pixel(0,255,0));
+  //Sphere sphere(sphere_center, sphere_rad, LightCol(0,255,0));
   //sceene.addRenderable(&sphere);
 
   
-  Sphere* s1 = new Sphere(Vector3(10,0,5), 1, rgb_pixel(255,0,0));
+  Sphere* s1 = new Sphere(Vector3(10,0,5), 1, LightCol(255,0,0));
   sceene.addRenderable(s1);
 
 
-  Sphere* s2 = new Sphere(Vector3(12,0,-2), 0.5, rgb_pixel(0,255,0));
+  Sphere* s2 = new Sphere(Vector3(12,0,-2), 0.5, LightCol(0,255,0));
   sceene.addRenderable(s2);
   
-  Sphere* s3 = new Sphere(Vector3(20,0,2), 2, rgb_pixel(0,0,200));
+  Sphere* s3 = new Sphere(Vector3(20,0,2), 2, LightCol(0,0,200));
   sceene.addRenderable(s3);
   
-  Sphere* s4 = new Sphere(Vector3(20,0,-5), 0.5, rgb_pixel(200,200,00));
+  Sphere* s4 = new Sphere(Vector3(20,0,-5), 0.5, LightCol(200,200,00));
   sceene.addRenderable(s4);
   
-  Sphere* s5 = new Sphere(Vector3(20,-3,-5), 0.5, rgb_pixel(200,0,100));
+  Sphere* s5 = new Sphere(Vector3(20,-3,-5), 0.5, LightCol(200,0,100));
   sceene.addRenderable(s5);
   
-  Sphere* s6 = new Sphere(Vector3(15.5,-3,-2), 0.5, rgb_pixel(200,0,100));
+  Sphere* s6 = new Sphere(Vector3(15.5,-3,-2), 0.5, LightCol(200,0,100));
   sceene.addRenderable(s6);
 
   Light* light = new Light(Vector3(10,-10,-10));
 
-  Plane* p1 = new Plane(Vector3(0,1,0), 0, rgb_pixel(150,150,150));
+  Plane* p1 = new Plane(Vector3(0,1,0), 0, LightCol(150,150,150));
   sceene.addRenderable(p1);
 
   sceene.setLight(light);
@@ -84,69 +85,69 @@ cout << "count : "<< count <<  endl; int img_width = 2000;
   Light* light = new Light(Vector3(15,-50,0));
   sceene.setLight(light);
 
-  Plane* p1 = new CPlane(Vector3(0,1,0), 0, rgb_pixel(150,150,150));
-  p1->shade_pixel_col = rgb_pixel(70,70,70);
+  Plane* p1 = new CPlane(Vector3(0,1,0), 0, LightCol(0.59,0.59,0.59));
+  p1->shade_pixel_col = LightCol(0.27,0.270,0.270);
   sceene.addRenderable(p1);
 
-  Sphere* s1 = new Sphere2(Vector3(10,-1,0),0.5, rgb_pixel(200,0,0), true, true);
-  s1->shade_pixel_col = rgb_pixel(100,0,0);
+  Sphere* s1 = new Sphere2(Vector3(10,-1,0),0.5, LightCol(0.78,0,0), true, true);
+  s1->shade_pixel_col = LightCol(0.39,0,0);
   sceene.addRenderable(s1);
 
-  Sphere* s2 = new Sphere2(Vector3(15,-1,5),0.5, rgb_pixel(200,0,0));
-  s2->shade_pixel_col = rgb_pixel(100,0,0);
+  Sphere* s2 = new Sphere2(Vector3(15,-1,5),0.5, LightCol(0.78,0,0));
+  s2->shade_pixel_col = LightCol(0.39,0,0);
   sceene.addRenderable(s2);
 
-  Sphere* s3 = new Sphere2(Vector3(15,-1,-5),0.5, rgb_pixel(200,0,0), false, false);
-  s3->shade_pixel_col = rgb_pixel(100,0,0);
+  Sphere* s3 = new Sphere2(Vector3(15,-1,-5),0.5, LightCol(0.78,0,0), false, false);
+  s3->shade_pixel_col = LightCol(0.39,0,0);
   sceene.addRenderable(s3);
 
-  Sphere* s4 = new Sphere2(Vector3(25,-1,0),0.5, rgb_pixel(200,0,0));
-  s4->shade_pixel_col = rgb_pixel(100,0,0);
+  Sphere* s4 = new Sphere2(Vector3(25,-1,0),0.5, LightCol(0.78,0,0));
+  s4->shade_pixel_col = LightCol(0.39,0,0);
   sceene.addRenderable(s4);
 
-  Sphere* s5 = new Sphere2(Vector3(15,-3,0),0.5, rgb_pixel(200,0,200));
-  s5->shade_pixel_col = rgb_pixel(100,0,100);
+  Sphere* s5 = new Sphere2(Vector3(15,-3,0),0.5, LightCol(0.78,0,0.78));
+  s5->shade_pixel_col = LightCol(9.39,0,0.39);
   sceene.addRenderable(s5);
 
-  Sphere* s6 = new Sphere2(Vector3(15,1,0),3, rgb_pixel(100,200,200));
-  s6->shade_pixel_col = rgb_pixel(50,100,100);
+  Sphere* s6 = new Sphere2(Vector3(15,1,0),3, LightCol(0.39,0.78,0.78));
+  s6->shade_pixel_col = LightCol(0.2,0.39,0.39);
   sceene.addRenderable(s6);
 
-  Sphere* s7 = new Sphere2(Vector3(20,1,8),3, rgb_pixel(100,200,200));
-  s7->shade_pixel_col = rgb_pixel(50,100,100);
+  Sphere* s7 = new Sphere2(Vector3(20,1,8),3, LightCol(0.39,0.78,0.78));
+  s7->shade_pixel_col = LightCol(0.2,0.39,0.39);
   sceene.addRenderable(s7);
 
-  Sphere* s8 = new Sphere2(Vector3(15,-4,-3),0.2, rgb_pixel(100,0,200));
-  s8->shade_pixel_col = rgb_pixel(50,0,100);
+  Sphere* s8 = new Sphere2(Vector3(15,-4,-3),0.2, LightCol(0.78,0,0.78));
+  s8->shade_pixel_col = LightCol(0.2,0,0.39);
   sceene.addRenderable(s8);
 
-  Sphere* s9 = new Sphere2(Vector3(15,-10,-5),2, rgb_pixel(0,200,100), true, true);
-  s9->shade_pixel_col = rgb_pixel(0,100,50);
+  Sphere* s9 = new Sphere2(Vector3(15,-10,-5),2, LightCol(0,0.78,0.39), true, true);
+  s9->shade_pixel_col = LightCol(0,0.39,0.2);
   sceene.addRenderable(s9);
 
-  Sphere* s10 = new RSphere(Vector3(10,1,4),3);
+  Sphere* s10 = new RSphere(Vector3(10,1,4),3, LightCol(1,0.4,0.5));
   sceene.addRenderable(s10);
 
+  Sphere* s11 = new RSphere(Vector3(10,-2,-6),3, LightCol(0.1,0.8,0.7));
+  sceene.addRenderable(s11);
 
-  Plane* p2 = new Plane(Vector3(0,0,1), -8, rgb_pixel(100,100,150));
-  p2->shade_pixel_col = rgb_pixel(50,50,75);
+  Plane* p2 = new Plane(Vector3(0,0,1), -8, LightCol(0.78,0.78,0.58));
+  p2->shade_pixel_col = LightCol(0.2,0.2,0.29);
   sceene.addRenderable(p2);
-
-
 
   /*
 
   FixedSceene sceene(5);
-  Sphere* ts1 = new Sphere(Vector3(10,0,5), 1, rgb_pixel(255,0,0));
+  Sphere* ts1 = new Sphere(Vector3(10,0,5), 1, LightCol(255,0,0));
   sceene.addRenderable(ts1);
 
-  Plane* tp1 = new Plane(Vector3(0,1,0), 0, rgb_pixel(150,150,150));
+  Plane* tp1 = new Plane(Vector3(0,1,0), 0, LightCol(150,150,150));
   sceene.addRenderable(tp1);
 
   Light* test_light = new Light(Vector3(10,-10,-10));
   sceene.setLight(test_light);
 
-  Sphere* loc = new Sphere(Vector3(10,-1,3.5), 0.1, rgb_pixel(255,0,0));
+  Sphere* loc = new Sphere(Vector3(10,-1,3.5), 0.1, LightCol(255,0,0));
   sceene.addRenderable(loc);
 
 
@@ -168,20 +169,30 @@ cout << "count : "<< count <<  endl; int img_width = 2000;
 
   Intersection* inter;
 
-  rgb_pixel pixel = rgb_pixel(0.2,30,40);
+  LightCol pixel = LightCol(0.2,30,40);
 
-  cout << "pixel red " << (int) pixel.red << endl;
+  cout << "pixel red " << pixel.red << endl;
 
   //return;
 
 
-  rgb_pixel shadow_col(10,10,10);
+  LightCol shadow_col(0.039,0.039,0.039);
+
+  cout << "1" <<endl;
+
+  LightCol** raw_colours = new LightCol*[img_width];
+
+  cout << "2" <<endl;
+
+  float max_brightness = -1000000.0;
+  
+  cout << "3" <<endl;
 
   for(int i = 0; i < img_width; i++) {
+    raw_colours[i] = new LightCol[img_height];
     for(int j = 0; j < img_height; j++){
 
-
-      Vector3 extra(0,dy * (j - (float) img_height/2), dz * (i - (float) img_width/ 2 ));
+      Vector3 extra(0, dz * (j - (float) img_height/ 2 ), dy * (i - (float) img_width/2));
 
       Ray ray(cam_pos, cam_direction + extra);
 
@@ -190,11 +201,21 @@ cout << "count : "<< count <<  endl; int img_width = 2000;
       if(inter != NULL) {
         //light has hit an object
 
-        image[j][i] = sceene.getColAtInter(inter, ray);
+        raw_colours[i][j] = sceene.getColAtInter(inter, ray);
 
       } else {
-        image[j][i] = sceene.default_color;
+        raw_colours[i][j] = sceene.default_color;
       }
+
+      if(raw_colours[i][j].red > max_brightness) {
+        max_brightness = raw_colours[j][i].red;
+      } else if(raw_colours[i][j].green > max_brightness) {
+        max_brightness = raw_colours[j][i].green;
+      } else if(raw_colours[i][j].blue > max_brightness) {
+        max_brightness = raw_colours[j][i].blue;
+      }
+
+
 
       delete inter;
     }
@@ -203,6 +224,24 @@ cout << "count : "<< count <<  endl; int img_width = 2000;
       cout << "finished column: " << i << endl;
     }
   }
+
+  cout << "max brightness is: " << max_brightness << endl;
+
+  max_brightness = 1 / max_brightness;
+
+  cout << "starting colour scaling" << endl;
+
+  for(int i = 0; i < img_width; i++) {
+    for(int j = 0; j < img_height; j++){
+
+      //LightCol lc = raw_colours[i][j].scale(max_brightness * 255);
+      LightCol lc = raw_colours[i][j].scale(255);
+
+
+      image[j][i] = rgb_pixel(lc.red, lc.green, lc.blue);
+    }
+  }
+
 
   if(write){
 

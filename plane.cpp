@@ -55,7 +55,7 @@ Intersection* Plane::getPosInter(Ray ray) {
 }
 
 
-png::rgb_pixel Plane::getColAtInter(Intersection* inter, Ray insident_ray, FixedSceene* sceene) {
+LightCol Plane::getColAtInter(Intersection* inter, Ray insident_ray, FixedSceene* sceene) {
 
   if(sceene->isInShade(inter)) {
     return shade_pixel_col;

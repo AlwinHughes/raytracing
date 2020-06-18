@@ -10,13 +10,13 @@ Sphere::Sphere(Vector3 c, float ra) {
   r = ra;
 };
 
-Sphere::Sphere(Vector3 c, float ra, png::rgb_pixel col) {
+Sphere::Sphere(Vector3 c, float ra, LightCol col) {
   center = c;
   r = ra;
   pixel_col = col;
 };
 
-Sphere::Sphere(Vector3 c, float ra, png::rgb_pixel col, bool can_occ, bool can_self_occ) {
+Sphere::Sphere(Vector3 c, float ra, LightCol col, bool can_occ, bool can_self_occ) {
   center = c;
   r = ra;
   pixel_col = col;
@@ -207,7 +207,7 @@ bool Sphere::doesIntersect(Ray ray) {
 
 }
 
-png::rgb_pixel Sphere::getColAtInter(Intersection* inter, Ray insident_ray, FixedSceene* sceene) {
+LightCol Sphere::getColAtInter(Intersection* inter, Ray insident_ray, FixedSceene* sceene) {
 
   if(sceene->isInShade(inter)) {
     return shade_pixel_col;
