@@ -20,15 +20,15 @@ class Sphere : public Renderable {
   public:
     std::string toString();
     std::pair<float,float> intersectRay(Ray);
-    Intersection* getPosInter(Ray);
+    Intersection getPosInter(Ray);
     bool doesIntersect(Ray);
     bool hasPositiveInter(Ray);
-    Intersection* getInter(Ray);
+    Intersection getInter(Ray);
     Sphere();
     Sphere(Vector3, float);
     Sphere(Vector3, float, LightCol);
     Sphere(Vector3, float, LightCol,bool, bool);
-    virtual LightCol getColAtInter(Intersection*, Ray, FixedSceene*);
+    virtual LightCol getColAtInter(Intersection, Ray, FixedSceene*);
 
 };
 #endif

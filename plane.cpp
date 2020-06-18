@@ -37,25 +37,25 @@ bool Plane::hasPositiveInter(Ray ray) {
   return false;
 }
 
-Intersection* Plane::getPosInter(Ray ray) {
+Intersection Plane::getPosInter(Ray ray) {
   
   float grad_dot_normal = ray.grad.Dot(normal);
 
   if(grad_dot_normal == 0) {
-    return NULL;
+    return Intersection();
   }
 
   float t = (d - (ray.start.Dot(normal)))/grad_dot_normal;
 
   if(t < 0) {
-    return NULL;
+    return Intersection();
   }
 
-  return new Intersection(this, ray.pos(t), normal);
+  return Intersection(this, ray.pos(t), normal);
 }
 
 
-LightCol Plane::getColAtInter(Intersection* inter, Ray insident_ray, FixedSceene* sceene) {
+LightCol Plane::getColAtInter(Intersection inter, Ray insident_ray, FixedSceene* sceene) {
 
   if(sceene->isInShade(inter)) {
     return shade_pixel_col;

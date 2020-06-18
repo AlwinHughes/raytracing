@@ -62,7 +62,7 @@ std::pair<float,float> Sphere::intersectRay(Ray ray) {
 };
 
 
-Intersection* Sphere::getPosInter(Ray ray) {
+Intersection Sphere::getPosInter(Ray ray) {
   float a = ray.grad.Dot(ray.grad);
 
   Vector3 one(1,1,1);
@@ -77,7 +77,7 @@ Intersection* Sphere::getPosInter(Ray ray) {
   float descriminant = b*b - 4 * a * c;
 
   if( descriminant < 0) {
-    return NULL;
+    return Intersection();
   }
 
   descriminant = sqrt(descriminant);
@@ -105,19 +105,17 @@ Intersection* Sphere::getPosInter(Ray ray) {
 
   if(t2 > 0) {
     Vector3 p = ray.pos(t2);
-    //return new Intersection(this, p);
-    return new Intersection(this, p, (p - center).normalize());
+    return Intersection(this, p, (p - center).normalize());
   } else if(t1 > epsilon) {
     Vector3 p = ray.pos(t1);
-    //return new Intersection(this, p);
-    return new Intersection(this, p, (p - center).normalize());
+    return Intersection(this, p, (p - center).normalize());
   } else {
-    return NULL;
+    return Intersection();
   }
   
 }
 
-Intersection* Sphere::getInter(Ray ray) {
+Intersection Sphere::getInter(Ray ray) {
   float a = ray.grad.Dot(ray.grad);
 
   Vector3 one(1,1,1);
@@ -132,7 +130,7 @@ Intersection* Sphere::getInter(Ray ray) {
   float descriminant = b*b - 4 * a * c;
 
   if( descriminant < 0) {
-    return NULL;
+    return Intersection();
   }
 
   descriminant = sqrt(descriminant);
@@ -161,11 +159,11 @@ Intersection* Sphere::getInter(Ray ray) {
 
 
   if(t2 > 0) {
-    return new Intersection(this, ray.pos(t2));
+    return Intersection(this, ray.pos(t2));
   } else if(t1 > epsilon) {
-    return new Intersection(this, ray.pos(t1));
+    return Intersection(this, ray.pos(t1));
   } else {
-    return NULL;
+    return Intersection();
   }
   
 }
@@ -207,7 +205,7 @@ bool Sphere::doesIntersect(Ray ray) {
 
 }
 
-LightCol Sphere::getColAtInter(Intersection* inter, Ray insident_ray, FixedSceene* sceene) {
+LightCol Sphere::getColAtInter(Intersection inter, Ray insident_ray, FixedSceene* sceene) {
 
   if(sceene->isInShade(inter)) {
     return shade_pixel_col;

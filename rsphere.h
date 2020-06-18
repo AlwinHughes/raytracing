@@ -26,7 +26,7 @@ class RSphere : public Sphere {
       Sphere(c,r,tint_col,occ,self_occ) {};
 
 
-    LightCol getColAtInter(Intersection*, Ray, FixedSceene*);
+    LightCol getColAtInter(Intersection, Ray, FixedSceene*);
 
 };
 #endif

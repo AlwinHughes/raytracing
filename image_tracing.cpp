@@ -31,11 +31,11 @@ void imageTracing(bool write = true) {
 
   count = to_string((stoi(count) + 1));
 cout << "count : "<< count <<  endl; 
-  int img_width = 2000;
-  int img_height = 1000;
+  int img_width = 20000;
+  int img_height = 10000;
   
-  float dz = 0.001;
-  float dy = 0.001;
+  float dz = 0.0001;
+  float dy = 0.0001;
 
   Vector3 camera_start(0,-4,0);
 
@@ -167,7 +167,7 @@ cout << "count : "<< count <<  endl;
 
   Vector3 cam_pos = camera_start;
 
-  Intersection* inter;
+  Intersection inter;
 
   LightCol pixel = LightCol(0.2,30,40);
 
@@ -198,7 +198,7 @@ cout << "count : "<< count <<  endl;
 
       inter = sceene.getClosestInter(ray, cam_pos);
 
-      if(inter != NULL) {
+      if(!inter.isEmpty()) {
         //light has hit an object
 
         raw_colours[i][j] = sceene.getColAtInter(inter, ray);
@@ -215,9 +215,6 @@ cout << "count : "<< count <<  endl;
         max_brightness = raw_colours[j][i].blue;
       }
 
-
-
-      delete inter;
     }
 
     if(i % 200 == 0) {

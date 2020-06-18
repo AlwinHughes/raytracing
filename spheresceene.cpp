@@ -25,9 +25,9 @@ bool SphereSceene::hasPositiveInter(Ray ray) {
   return false;
 };
 
-bool SphereSceene::isInShade(Intersection* inter, Vector3 light_pos) {
+bool SphereSceene::isInShade(Intersection inter, Vector3 light_pos) {
   for(int i = 0; i < curr_num_sphres; i ++) {
-    if(&spheres[i] != inter->hit_object && spheres[i].hasPositiveInter(Ray(inter->pos,light_pos - inter->pos))) {
+    if(&spheres[i] != inter.hit_object && spheres[i].hasPositiveInter(Ray(inter.pos,light_pos - inter.pos))) {
       return true;
     }
   }
@@ -65,21 +65,21 @@ std::string SphereSceene::toString(){
   return ss.str();
 };
 
-Intersection* SphereSceene::getClosestInter(Ray ray, Vector3 cam_pos) {
+Intersection SphereSceene::getClosestInter(Ray ray, Vector3 cam_pos) {
   float curr_dist_2 = std::numeric_limits<float>::max();
 
-  Intersection* inter;
-  Intersection* best = NULL;
+  Intersection inter;
+  Intersection best;
 
 
   for(int i = 0; i < curr_num_sphres; i++) {
     inter = spheres[i].getInter(ray);
 
-    if(inter == NULL) {
+    if(inter.isEmpty()) {
       continue;
     }
 
-    if((inter->pos - cam_pos).squareDist() < curr_dist_2) {
+    if((inter.pos - cam_pos).squareDist() < curr_dist_2) {
       best = inter;
     }
   }

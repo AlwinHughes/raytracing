@@ -14,7 +14,7 @@ class MPlane : public Plane {
 
   public:
     MPlane(Vector3 n, float s, LightCol  col) : Plane(n,s, col) {};
-    LightCol getColAtInter(Intersection*, Ray, FixedSceene*);
+    LightCol getColAtInter(Intersection, Ray, FixedSceene*);
 
 };
 #endif

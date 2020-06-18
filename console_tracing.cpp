@@ -62,7 +62,7 @@ int consoleTracing() {
 
     ostringstream console_image[img_height];
 
-Intersection* inter;
+Intersection inter;
     for(int i = 0; i < img_width; i++) {
       for(int j = 0; j < img_height; j++){
         Vector3 extra(0,dy * (j - (float) img_height/2), dz * (i - (float) img_width/ 2 ));
@@ -73,14 +73,12 @@ Intersection* inter;
         inter = sceene.getClosestInter(ray, cam_pos); 
 
 
-        if(inter != NULL) {
-          console_image[j] << sceene.getClosestInter(ray, cam_pos)->hit_object->char_col;
+        if(!inter.isEmpty()) {
+          console_image[j] << sceene.getClosestInter(ray, cam_pos).hit_object->char_col;
         } else {
           console_image[j] << '.';
 
         }
-
-        delete inter;
 
 
       }

@@ -20,9 +20,9 @@ class Plane : public Renderable {
     };
     std::string toString();
     bool hasPositiveInter(Ray);
-    Intersection* getPosInter(Ray);
+    Intersection getPosInter(Ray);
     Vector3 intersectRay(Ray);
-    virtual LightCol getColAtInter(Intersection*, Ray, FixedSceene*);
+    virtual LightCol getColAtInter(Intersection, Ray, FixedSceene*);
 
 };
 #endif

@@ -25,12 +25,12 @@ class FixedSceene {
     void addRenderable(Renderable*);
     void setLight(Light*);
     bool hasPositiveInter(Ray);
-    Intersection* getClosestInter(Ray, Vector3);
-    Intersection* getClosestInter(Ray, Vector3,Renderable*);
-    bool isInShade(Intersection*);
+    Intersection getClosestInter(Ray, Vector3);
+    Intersection getClosestInter(Ray, Vector3,Renderable*);
+    bool isInShade(Intersection);
     std::string toString();
     LightCol default_color = LightCol(0,0,0);
-    LightCol getColAtInter(Intersection*,Ray);
+    LightCol getColAtInter(Intersection,Ray);
     Ray getRayFromLight(Vector3);
 
 };

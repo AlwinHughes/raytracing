@@ -16,11 +16,11 @@ class SphereSceene {
     int max_num_spheres;
     bool hasIntersection(Ray);
     bool hasPositiveInter(Ray);
-    Intersection* getClosestInter(Ray, Vector3);
+    Intersection getClosestInter(Ray, Vector3);
     SphereSceene(int);
     SphereSceene(Sphere*, int);
     void addSphere(Sphere*);
-    bool isInShade(Intersection*, Vector3);
+    bool isInShade(Intersection, Vector3);
     std::string toString();
 
 };

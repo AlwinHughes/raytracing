@@ -16,7 +16,7 @@ class Renderable {
   public:
     virtual std::string toString() = 0;
     virtual bool hasPositiveInter(Ray) = 0;
-    virtual Intersection* getPosInter(Ray) = 0;
+    virtual Intersection getPosInter(Ray) = 0;
     char char_col = '#';
     bool can_occlude = true;
     bool can_self_occulde = true;
@@ -24,7 +24,7 @@ class Renderable {
     LightCol shade_pixel_col;
     Renderable(){};
     //std::string toString();
-    virtual LightCol getColAtInter(Intersection*, Ray, FixedSceene*) = 0;
+    virtual LightCol getColAtInter(Intersection, Ray, FixedSceene*) = 0;
 
 };
 #endif

@@ -20,7 +20,7 @@ class Sphere2 : public Sphere {
     Sphere2(Vector3 c, float r) : Sphere(c, r) {};
     Sphere2(Vector3 c, float r, LightCol p) : Sphere(c, r, p) {};
     Sphere2(Vector3 c, float r, LightCol p,bool occ, bool self_occ) : Sphere(c,r,p,occ,self_occ) {};
-    LightCol getColAtInter(Intersection*, Ray, FixedSceene*);
+    LightCol getColAtInter(Intersection, Ray, FixedSceene*);
 
 
 };
