@@ -106,6 +106,7 @@ bool FixedSceene::isInShade(Intersection inter) {
 
       if(light_inter.isEmpty() && (light_inter.pos - light->pos).squareDist() < inter_to_light_dist) {
         //occluded by a different object
+        std::cout << "occluded other" << std::endl;
         return true;
       }
 
@@ -121,6 +122,7 @@ bool FixedSceene::isInShade(Intersection inter) {
   light_inter = inter.hit_object->getPosInter(Ray(light->pos, inter.pos - light->pos));
 
   if(light_inter.isEmpty() && (light_inter.pos - inter.pos).squareDist() > 0.00001) {
+    std::cout << "occluded self" << std::endl;
     return true;
 
   }

@@ -9,6 +9,7 @@
 #include "vector3.h"
 #include "fixedsceene.h"
 #include "light.h"
+#include "controler.h"
 
 #include <iostream>
 #include <sstream>
@@ -31,11 +32,11 @@ void imageTracing(bool write = true) {
 
   count = to_string((stoi(count) + 1));
 cout << "count : "<< count <<  endl; 
-  int img_width = 20000;
-  int img_height = 10000;
+  int img_width = 2000;
+  int img_height = 1000;
   
-  float dz = 0.0001;
-  float dy = 0.0001;
+  float dz = 0.001;
+  float dy = 0.001;
 
   Vector3 camera_start(0,-4,0);
 
@@ -167,46 +168,21 @@ cout << "count : "<< count <<  endl;
 
   Vector3 cam_pos = camera_start;
 
-  Intersection inter;
-
-  LightCol pixel = LightCol(0.2,30,40);
-
-  cout << "pixel red " << pixel.red << endl;
-
-  //return;
-
-
-  LightCol shadow_col(0.039,0.039,0.039);
-
-  cout << "1" <<endl;
-
   LightCol** raw_colours = new LightCol*[img_width];
 
-  cout << "2" <<endl;
+  Controler controler(sceene);
+  controler.setCamPos(cam_pos);
+  controler.setCamDirec(cam_direction);
+  //controler.setSceene(&sceene);
+
+  controler.render(raw_colours, img_width, img_height, 0.001, 0.001);
+
+
 
   float max_brightness = -1000000.0;
   
-  cout << "3" <<endl;
 
-  for(int i = 0; i < img_width; i++) {
-    raw_colours[i] = new LightCol[img_height];
-    for(int j = 0; j < img_height; j++){
-
-      Vector3 extra(0, dz * (j - (float) img_height/ 2 ), dy * (i - (float) img_width/2));
-
-      Ray ray(cam_pos, cam_direction + extra);
-
-      inter = sceene.getClosestInter(ray, cam_pos);
-
-      if(!inter.isEmpty()) {
-        //light has hit an object
-
-        raw_colours[i][j] = sceene.getColAtInter(inter, ray);
-
-      } else {
-        raw_colours[i][j] = sceene.default_color;
-      }
-
+  /*
       if(raw_colours[i][j].red > max_brightness) {
         max_brightness = raw_colours[j][i].red;
       } else if(raw_colours[i][j].green > max_brightness) {
@@ -214,15 +190,9 @@ cout << "count : "<< count <<  endl;
       } else if(raw_colours[i][j].blue > max_brightness) {
         max_brightness = raw_colours[j][i].blue;
       }
+      */
 
-    }
-
-    if(i % 200 == 0) {
-      cout << "finished column: " << i << endl;
-    }
-  }
-
-  cout << "max brightness is: " << max_brightness << endl;
+  //cout << "max brightness is: " << max_brightness << endl;
 
   max_brightness = 1 / max_brightness;
 
