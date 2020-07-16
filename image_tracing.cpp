@@ -83,10 +83,10 @@ cout << "count : "<< count <<  endl;
 
   FixedSceene sceene(20);
 
-  Light* light = new Light(Vector3(15,-50,0));
+  Light* light = new Light(Vector3(15,-5,0));
   sceene.setLight(light);
 
-  Plane* p1 = new CPlane(Vector3(0,1,0), 0, LightCol(0.59,0.59,0.59));
+  Plane* p1 = new CPlane(Vector3(0,-1,0), 0, LightCol(0.59,0.59,0.59));
   p1->shade_pixel_col = LightCol(0.27,0.270,0.270);
   sceene.addRenderable(p1);
 

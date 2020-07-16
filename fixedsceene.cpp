@@ -5,8 +5,7 @@
 FixedSceene::FixedSceene(int n) {
   curr_num_obj = 0;
   max_num_objs = n;
-  renderable_objs = new Renderable*[n];
-};
+  renderable_objs = new Renderable*[n]; };
 
 FixedSceene::FixedSceene(Renderable** objs, int n) {
   curr_num_obj = n;
@@ -89,12 +88,7 @@ Intersection FixedSceene::getClosestInter(Ray ray, Vector3 cam_pos, Renderable* 
   return best;
 };
 
-
-bool FixedSceene::isInShade(Intersection inter) {
-
-
-  Intersection light_inter;
-
+/*
   float inter_to_light_dist = (inter.pos - light->pos).squareDist();
   for(int i = 0; i < curr_num_obj; i ++) {
     //checks if other objects occule the light
@@ -123,6 +117,45 @@ bool FixedSceene::isInShade(Intersection inter) {
 
   if(light_inter.isEmpty() && (light_inter.pos - inter.pos).squareDist() > 0.00001) {
     std::cout << "occluded self" << std::endl;
+    return true;
+
+  }
+*/
+
+
+
+bool FixedSceene::isInShade(Intersection inter) {
+
+  Intersection light_inter;
+
+  float inter_to_light_dist = (inter.pos - light->pos).squareDist();
+  for(int i = 0; i < curr_num_obj; i ++) {
+    //checks if other objects occule the light
+
+    
+    if(renderable_objs[i]->can_occlude && renderable_objs[i] != inter.hit_object){
+      //shoots ray from the light to the intersection
+      light_inter = renderable_objs[i]->getPosInter(Ray(light->pos, inter.pos - light->pos));
+
+      if(light_inter.isEmpty() && (light_inter.pos - light->pos).squareDist() < inter_to_light_dist) {
+        //occluded by a different object
+        //std::cout << "occluded other" << std::endl;
+        return true;
+      }
+
+    }
+  }
+
+    //check if the objects is occlusing its self by 
+    //shooting a ray from the light to the object and 
+    //checking that difference bewteen the new intersection 
+    //and first intersection isn't too big
+
+
+  light_inter = inter.hit_object->getPosInter(Ray(light->pos, inter.pos - light->pos));
+
+  if(!light_inter.isEmpty() && (light_inter.pos - inter.pos).squareDist() > 0.000001) {
+    //std::cout << "occluded self" << std::endl;
     return true;
 
   }

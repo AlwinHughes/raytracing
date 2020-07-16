@@ -14,6 +14,7 @@ class FixedSceene;
 class Renderable {
 
   public:
+    bool apply_dot = true;
     virtual std::string toString() = 0;
     virtual bool hasPositiveInter(Ray) = 0;
     virtual Intersection getPosInter(Ray) = 0;

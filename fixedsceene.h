@@ -24,6 +24,7 @@ class FixedSceene {
     FixedSceene(Renderable**, int);
     void addRenderable(Renderable*);
     void setLight(Light*);
+    Light* getLight() { return light; }
     bool hasPositiveInter(Ray);
     Intersection getClosestInter(Ray, Vector3);
     Intersection getClosestInter(Ray, Vector3,Renderable*);

@@ -47,15 +47,27 @@ void Controler::render(LightCol** raw_colours, int width, int height, float dy, 
 };
 
 LightCol Controler::getColAtInter(Intersection inter, Ray ray) {
-  
-  if(inter.isEmpty() && sceene.isInShade(inter)) {
-    //std::cout << "empty" << std::endl;
-    return sceene.default_color;
+
+  Light* light = sceene.getLight();
+  Vector3 v = light->pos - inter.pos;
+  if(inter.hit_object->apply_dot){
+    float f = inter.normal.Dot(v);
+    if(f < 0) {
+      return sceene.default_color;
+    }
   }
   
+  if(inter.isEmpty() || sceene.isInShade(inter)) {
+    //std::cout << "black" << std::endl;
+    return sceene.default_color;
+  }
+
+
+
+
   //std::cout << inter.hit_object->toString() << std::endl;
   //simplest possible result
-  return inter.hit_object->pixel_col;
+  return inter.hit_object->pixel_col.scale(v.normalize().Dot(inter.normal));
 };
 
 
