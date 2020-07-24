@@ -47,5 +47,6 @@ struct LightCol {
     return LightCol(red * s, green * s, blue * s);
   }
 
+
 };
 #endif

@@ -15,6 +15,7 @@ class Renderable {
 
   public:
     bool apply_dot = true;
+    bool use_scattering = true;
     virtual std::string toString() = 0;
     virtual bool hasPositiveInter(Ray) = 0;
     virtual Intersection getPosInter(Ray) = 0;

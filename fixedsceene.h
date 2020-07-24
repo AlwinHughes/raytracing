@@ -16,18 +16,24 @@ class FixedSceene {
   private:
     Renderable** renderable_objs;
     int curr_num_obj;
-    Light* light;
+    Light* light = NULL;
+    Light** lights;
 
   public:
     int max_num_objs;
-    FixedSceene(int);
-    FixedSceene(Renderable**, int);
+    int max_num_lights;
+    int curr_num_lights;
+    FixedSceene(int, int);
+    FixedSceene(Renderable**, int, int);
     void addRenderable(Renderable*);
+    void addLight(Light*);
     void setLight(Light*);
-    Light* getLight() { return light; }
+    Light* getLight() { return light; };
+    Light** getLights() { return lights; };
+    bool isInShade(Intersection, Light*);
     bool hasPositiveInter(Ray);
     Intersection getClosestInter(Ray, Vector3);
-    Intersection getClosestInter(Ray, Vector3,Renderable*);
+    Intersection getClosestInter(Ray, Vector3, Renderable*);
     bool isInShade(Intersection);
     std::string toString();
     LightCol default_color = LightCol(0,0,0);

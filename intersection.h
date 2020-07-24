@@ -19,6 +19,7 @@ class Intersection {
     Renderable* hit_object;
     Vector3 pos;
     Vector3 normal;
+    int bounces = 0;
     Intersection() { is_empty = true; };
     Intersection(Renderable* hit, Vector3 p) {
       hit_object = hit;

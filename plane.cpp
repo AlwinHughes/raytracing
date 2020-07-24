@@ -1,7 +1,6 @@
 #include "plane.h"
 #include <sstream>
 #include <math.h>
-
 std::string Plane::toString() {
 
 
@@ -39,7 +38,10 @@ bool Plane::hasPositiveInter(Ray ray) {
 
 Intersection Plane::getPosInter(Ray ray) {
   
+  //std::cout << "inter? " << normal.toString() << std::endl;
   float grad_dot_normal = ray.grad.Dot(normal);
+  //std::cout << "inter " << grad_dot_normal << std::endl;
+
 
   if(grad_dot_normal == 0) {
     return Intersection();
@@ -47,9 +49,13 @@ Intersection Plane::getPosInter(Ray ray) {
 
   float t = (d - (ray.start.Dot(normal)))/grad_dot_normal;
 
+  //std::cout << t << std::endl;
+
   if(t < 0) {
+    //std::cout << "behind";
     return Intersection();
   }
+
 
   return Intersection(this, ray.pos(t), normal);
 }
@@ -58,8 +64,7 @@ Intersection Plane::getPosInter(Ray ray) {
 LightCol Plane::getColAtInter(Intersection inter, Ray insident_ray, FixedSceene* sceene) {
 
   if(sceene->isInShade(inter)) {
-    return shade_pixel_col;
-  } else {
+    return shade_pixel_col; } else {
     return pixel_col;
   }
 

@@ -56,7 +56,7 @@ struct Vector3 {
     return Vector3(x*inv, y * inv, z*inv);
   }
 
-  inline float squareDist() {
+  inline float squareDist() const {
     return x*x + y*y + z*z;
   }
 };
