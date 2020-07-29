@@ -1,3 +1,4 @@
+/*
 #include "plane.h"
 #include <sstream>
 #include <math.h>
@@ -69,4 +70,4 @@ LightCol Plane::getColAtInter(Intersection inter, Ray insident_ray, FixedSceene*
   }
 
 }
-
+*/

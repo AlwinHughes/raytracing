@@ -36,15 +36,21 @@ struct LightCol {
 
   inline LightCol reflect(const LightCol& L) {
     return LightCol(red * L.red, green * L.green, blue * L.blue);
-  }
+  };
 
   inline LightCol normalize() const {
     float inv = 1/sqrt(red*red + green*green + blue*blue);
     return LightCol(red*inv, green * inv, blue*inv);
-  }
+  };
 
   inline LightCol scale(float s) {
     return LightCol(red * s, green * s, blue * s);
+  };
+
+  inline std::string toString() const {
+    std::ostringstream ss;
+    ss << "R " << std::to_string(red) << " G " << std::to_string(green) << " B " << std::to_string(blue);
+    return ss.str();
   }
 
 

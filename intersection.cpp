@@ -9,4 +9,4 @@ std::string Intersection::toString() {
   ss << "Intersection| at: " << pos.toString() << " on object: " << hit_object->toString();
 
   return ss.str();
-}
+};

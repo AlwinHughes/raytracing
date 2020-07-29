@@ -86,6 +86,3 @@ Intersection SphereSceene::getClosestInter(Ray ray, Vector3 cam_pos) {
 
   return best;
 };
-
-
-

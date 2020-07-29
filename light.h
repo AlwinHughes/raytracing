@@ -9,6 +9,7 @@ class Light {
   public:
     float brightness = 1;
     Vector3 pos;
+    Light() {};
     LightCol lc = LightCol(1,1,1);
     Light(Vector3, float);
     Light(Vector3, LightCol);

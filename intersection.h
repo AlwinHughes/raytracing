@@ -12,7 +12,7 @@ class Renderable;
 
 class Intersection {
 
-  private: 
+  private:
     bool is_empty = true;
 
   public:
@@ -33,8 +33,6 @@ class Intersection {
       is_empty = false;
     };
     std::string toString();
-    bool isEmpty() { return is_empty; }
-
-
+    bool isEmpty() { return is_empty; };
 };
 #endif

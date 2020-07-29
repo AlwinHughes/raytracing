@@ -1,3 +1,4 @@
+/*
 #include "sphere.h"
 #include <sstream>
 #include <math.h>
@@ -86,7 +87,7 @@ Intersection Sphere::getPosInter(Ray ray) {
   float t1 = (-b + descriminant)/(2 * a);
   float t2 = (-b - descriminant)/(2 * a);
 
-  /*
+  *
    * we know that descrimant > 0 and that a > 0
    * so we know that t1 > t2 
    * we are interested in the closest intersection 
@@ -99,7 +100,7 @@ Intersection Sphere::getPosInter(Ray ray) {
    * if both are less than 0 then the object is 
    * behind the camera
    *
-   */
+   *
 
   //std::cout << "t1: " << t1 << " t2: " << t2 << std::endl;
 
@@ -152,7 +153,7 @@ Intersection Sphere::getInter(Ray ray) {
    * if both are less than 0 then the object is 
    * behind the camera
    *
-   */
+   *
 
 
   //using epsilon to check for already being on the surface
@@ -218,3 +219,4 @@ LightCol Sphere::getColAtInter(Intersection inter, Ray insident_ray, FixedSceene
 
 
 
+*/

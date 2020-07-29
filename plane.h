@@ -7,6 +7,7 @@
 #include <png++/png.hpp>
 #include "light_col.h"
 
+/*
 class Plane : public Renderable {
   protected:
     Vector3 normal;
@@ -25,4 +26,5 @@ class Plane : public Renderable {
     virtual LightCol getColAtInter(Intersection, Ray, FixedSceene*);
 
 };
+*/
 #endif

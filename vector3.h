@@ -32,11 +32,11 @@ struct Vector3 {
     return A.x * x + A.y * y + A.z * z;
   };
   
-  inline Vector3 operator * (const float s) {
+  inline Vector3 operator * (const float s) const {
     return Vector3(x* s, y * s, z *s);
   };
 
-  std::string toString() {
+  std::string toString() const {
     std::ostringstream ss;
     ss << "(" << x << "," << y << "," << z << ")";
     return ss.str();
@@ -45,20 +45,20 @@ struct Vector3 {
 
   inline Vector3 cross(const Vector3& A) const {
     return Vector3(y * A.z - A.y * z, A.x * z - A.z * x, x * A.y - A.x * y);
-  }
+  };
 
   inline Vector3 invert() const {
     return Vector3(-x, -y, -z);
-  }
+  };
 
   inline Vector3 normalize() const {
     float inv = 1/sqrt(x*x + y*y + z*z);
     return Vector3(x*inv, y * inv, z*inv);
-  }
+  };
 
   inline float squareDist() const {
     return x*x + y*y + z*z;
-  }
+  };
 };
 
 #endif

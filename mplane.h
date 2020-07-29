@@ -1,3 +1,4 @@
+/*
 #ifndef MPLANE
 #define MPLANE
 
@@ -18,3 +19,4 @@ class MPlane : public Plane {
 
 };
 #endif
+*/

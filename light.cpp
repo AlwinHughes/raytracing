@@ -26,4 +26,4 @@ std::string Light::toString() {
   std::ostringstream ss;
   ss << "Light pos: " << pos.toString() << " brightness: " << brightness << std::endl;
   return ss.str();
-}
+};

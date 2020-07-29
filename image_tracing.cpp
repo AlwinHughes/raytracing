@@ -1,16 +1,13 @@
 #include "ray.h"
-#include "sphere.h"
-#include "sphere2.h"
-#include "rsphere.h"
-#include "plane.h"
-#include "mplane.h"
-#include "checkered_plane.h"
-#include "spheresceene.h"
+#include "intersectable.h"
+#include "material.h"
 #include "vector3.h"
 #include "fixedsceene.h"
 #include "light.h"
 #include "light_col.h"
 #include "controler.h"
+#include "spheregeom.h"
+#include "flatmat.h"
 
 #include <iostream>
 #include <sstream>
@@ -82,6 +79,7 @@ cout << "count : "<< count <<  endl;
 
 
 
+  /*
   FixedSceene sceene(20, 4);
 
   
@@ -90,14 +88,12 @@ cout << "count : "<< count <<  endl;
   sceene.addLight(light1);
   
   
-  /*
   Light* light2 = new Light(Vector3(10,-5,20), LightCol(1,0,0.2), 0.5);
   sceene.addLight(light2);
 
   Light* light3 = new Light(Vector3(5,-7,-3), LightCol(0.1,1,0.2), 0.5);
   //Light* light3 = new Light(Vector3(0,-7,-3), 0.5);
   sceene.addLight(light3);
-  */
  
   //Light* light4 = new Light(Vector3(0,-4,5), LightCol(0,0.1,0.9),6);
   Light* light4 = new Light(Vector3(0,-4,5), 6);
@@ -163,6 +159,7 @@ cout << "count : "<< count <<  endl;
   p3->shade_pixel_col = LightCol(0.2,0.2,0.29);
   sceene.addRenderable(p3);
 
+  */
 
   /*
 
@@ -192,6 +189,20 @@ cout << "count : "<< count <<  endl;
   delete test_inter;
   */
 
+
+  FixedSceene sceene(5,2);
+
+  FlatMaterial flat_mat = FlatMaterial(LightCol(1,0,0));
+  SphereGeom s_geom_1 = SphereGeom(Vector3(5,-5,2), 1);
+  Renderable r1(&s_geom_1, &flat_mat);
+  sceene.addRenderable(r1);
+  
+  FlatMaterial flat_mat_2 = FlatMaterial(LightCol(0,1,0));
+  SphereGeom s_geom_2 = SphereGeom(Vector3(20,-2,2), 5);
+  Renderable r2(&s_geom_2, &flat_mat_2);
+  sceene.addRenderable(r2);
+
+
   std::cout << sceene.toString() << endl;
 
   Vector3 cam_pos = camera_start;
@@ -212,8 +223,8 @@ cout << "count : "<< count <<  endl;
       dy, /* float dy  */
       dz,/* float dz  */
       1,/* int max_bounce  */
-      16,/* int rayx_per_pixel  */
-      16);/* int difuse_rays  */
+      1,/* int rayx_per_pixel  */
+      1);/* int difuse_rays  */
 
 
   //float max_brightness = -1000000.0;
@@ -238,23 +249,27 @@ cout << "count : "<< count <<  endl;
 
   float max_brightness = 0;
 
-  Light** lights = sceene.getLights();
+  Light* lights = sceene.getLights();
   for(int i = 0; i< sceene.curr_num_lights; i++) {
-    cout << lights[i]->brightness << endl;
-    max_brightness += lights[i]->brightness;
+    cout << lights[i].brightness << endl;
+    max_brightness += lights[i].brightness;
   }
 
 
   cout << "max brightness is: " << max_brightness << endl;
 
+  /*
   if(max_brightness > 1 ) {
     max_brightness = 1 / max_brightness;
   }
+  */
 
+  max_brightness = 1;
+  
+  cout << "test" << endl;
 
   for(int i = 0; i < img_width; i++) {
-    for(int j = 0; j < img_height; j++){
-
+   for(int j = 0; j < img_height; j++){
       LightCol lc = raw_colours[i][j].scale(max_brightness * 255);
       //LightCol lc = raw_colours[i][j].scale(255);
       image[j][i] = rgb_pixel(lc.red, lc.green, lc.blue);

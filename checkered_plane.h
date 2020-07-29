@@ -1,3 +1,4 @@
+/*
 #ifndef CPLANE
 #define CPLANE
 
@@ -20,3 +21,4 @@ class CPlane : public Plane {
 
 };
 #endif
+*/

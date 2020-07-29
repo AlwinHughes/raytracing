@@ -1,3 +1,4 @@
+/*
 #include "ray.h"
 #include "sphere.h"
 #include "plane.h"
@@ -97,3 +98,4 @@ Intersection inter;
 
 };
 
+*/

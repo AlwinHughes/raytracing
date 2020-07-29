@@ -11,7 +11,4 @@ LightCol Sphere2::getColAtInter(Intersection inter, Ray insident_ray, FixedSceen
   float m = (light.grad.normalize().invert()).Dot(inter.normal);
 
   return pixel_col.scale(m);
-
-
-}
-
+};

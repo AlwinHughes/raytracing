@@ -1,3 +1,4 @@
+/*
 #include "mplane.h"
 
 
@@ -17,3 +18,4 @@ LightCol MPlane::getColAtInter(Intersection inter, Ray insident_ray, FixedSceene
     return sceene->default_color;
   }
 }
+*/

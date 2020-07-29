@@ -1,3 +1,4 @@
+/*
 #include "checkered_plane.h"
 
 LightCol CPlane::getColAtInter(Intersection* inter, Ray r, FixedSceene* s) {
@@ -9,3 +10,5 @@ LightCol CPlane::getColAtInter(Intersection* inter, Ray r, FixedSceene* s) {
   }
 
 };
+
+*/

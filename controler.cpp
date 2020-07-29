@@ -10,14 +10,12 @@
  * takes 1m21s at 2000x1000 with 8 rays per pixel; or 11 sec at 1 ray per pixel; or 7m2s at 32 rays per pixel
  *
  *
- *
  */
 #include "controler.h"
 #include <sstream>
 
 
-
-//         void render(LightCol** raw_cols, int width, int height, float dy, float dz, int max_bounce = 1, int rays_per_pixel = 1, int difuse_rays = 0);
+//void render(LightCol** raw_cols, int width, int height, float dy, float dz, int max_bounce = 1, int rays_per_pixel = 1, int difuse_rays = 0);
 
 void Controler::render(LightCol** raw_colours, int width, int height, float dy, float dz, int max_bounce, int rays_per_pixel, int difuse_rays) {
 
@@ -34,20 +32,20 @@ void Controler::render(LightCol** raw_colours, int width, int height, float dy, 
 
         LightCol c(0,0,0);
 
-        //std::cout << i << " " << j << std::endl;
         //get the starting ray
         Vector3 extra(0, dz * (j - (float) height/ 2 ), dy * (i - (float) width/2));
         Ray ray(cam_pos, cam_direc + extra);
 
-        //std::cout << ray.toString() << std::endl;
-
         Intersection inter = sceene.getClosestInter(ray, cam_pos);
-        c = getColAtInter(inter, ray, max_bounce, difuse_rays);
+        if(!inter.isEmpty()) {
+          c = inter.hit_object->material->getColAtInter(inter,ray);
+        }
 
         raw_colours[i][j] = c;
       }
     }
-  } else {
+
+  }/* else {
 
     srand(time(NULL));
 
@@ -81,6 +79,7 @@ void Controler::render(LightCol** raw_colours, int width, int height, float dy, 
     }
 
   }
+  */
 
 };
 
@@ -91,8 +90,10 @@ LightCol Controler::getColAtInter(Intersection inter, Ray ray, int max_bounce, i
     return sceene.default_color;
   }
 
-  Light** lights = sceene.getLights();
+  Light* lights = sceene.getLights();
   LightCol lc(0,0,0);
+
+  /*
 
   for(int i = 0; i < sceene.curr_num_lights; i++) {
 
@@ -147,6 +148,7 @@ LightCol Controler::getColAtInter(Intersection inter, Ray ray, int max_bounce, i
 
     }
   }
+  */
 
   /*
   if(inter.use_scattering && inter.bounces < max_bounce) {
