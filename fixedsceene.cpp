@@ -26,6 +26,7 @@ void FixedSceene::addRenderable(Renderable rend) {
     renderable_objs[curr_num_obj] = rend;
     //geometry needs a reference to its parent 
     renderable_objs[curr_num_obj].geometry->parent = &renderable_objs[curr_num_obj];
+    renderable_objs[curr_num_obj].material->sceene = this;
     curr_num_obj++;
   }
 };

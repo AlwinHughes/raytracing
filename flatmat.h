@@ -18,7 +18,7 @@ class FlatMaterial : public Material {
     LightCol getColAtInter(const Intersection&, const Ray&) const { 
       return color; 
     };
-    std::string toString() { 
+    std::string toString() const { 
       std::ostringstream ss;
       ss << "Flat Material " << color.toString(); 
       return ss.str();

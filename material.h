@@ -6,6 +6,9 @@
 #include "vector3.h"
 #include "fixedsceene.h"
 #include "light_col.h"
+#include "fixedsceene.h"
+
+class FixedSceene;
 
 class Material {
 
@@ -13,7 +16,8 @@ class Material {
     virtual Ray getRay(const Intersection&, const Ray&) const = 0;
     virtual LightCol getColAtInter(const Intersection&, const Ray&) const = 0;
     LightCol color;
-    virtual std::string toString() = 0;
+    virtual std::string toString() const = 0;
     Material(LightCol c) : color(c) {};
+    FixedSceene* sceene;
 };
 #endif

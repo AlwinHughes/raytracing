@@ -45,7 +45,7 @@ void Controler::render(LightCol** raw_colours, int width, int height, float dy, 
       }
     }
 
-  }/* else {
+  } else {
 
     srand(time(NULL));
 
@@ -71,7 +71,10 @@ void Controler::render(LightCol** raw_colours, int width, int height, float dy, 
           Ray ray(cam_pos, cam_direc + extra);
 
           Intersection inter = sceene.getClosestInter(ray, cam_pos);
-          c = c + getColAtInter(inter, ray, max_bounce, difuse_rays);
+          if(!inter.isEmpty()) {
+            c = c + inter.hit_object->material->getColAtInter(inter,ray);
+          }
+          //c = c + getColAtInter(inter, ray, max_bounce, difuse_rays);
 
         }
         raw_colours[i][j] = c.scale(1.0 / (float) rays_per_pixel);
@@ -79,7 +82,6 @@ void Controler::render(LightCol** raw_colours, int width, int height, float dy, 
     }
 
   }
-  */
 
 };
 

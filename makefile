@@ -1,11 +1,10 @@
 CXX = g++
 
-entry : entry.o console_tracing.o image_tracing.o ray.o  light.o fixedsceene.o renderable.o intersection.o  controler.o spheregeom.o
-	$(CXX) -o entry entry.o ray.o light.o fixedsceene.o renderable.o intersection.o controler.o spheregeom.o `libpng-config --ldflags`
+entry : entry.o console_tracing.o image_tracing.o ray.o  light.o fixedsceene.o renderable.o intersection.o  controler.o spheregeom.o planegeom.o basicshade.o fullshade.o
+	$(CXX) -o entry entry.o ray.o light.o fixedsceene.o renderable.o intersection.o controler.o spheregeom.o planegeom.o basicshade.o fullshade.o `libpng-config --ldflags`
 
 entry.o : entry.cpp image_tracing.o console_tracing.o
 	$(CXX) -c entry.cpp `libpng-config --cflags`
-
 
 console_tracing.o : console_tracing.cpp
 	$(CXX) -c console_tracing.cpp `libpng-config --cflags`
@@ -33,3 +32,12 @@ controler.o : controler.cpp controler.h
 
 spheregeom.o : spheregeom.cpp spheregeom.h
 	$(CXX) -c spheregeom.cpp
+
+planegeom.o : planegeom.cpp planegeom.h
+	$(CXX) -c planegeom.cpp
+
+basicshade.o :  basicshade.cpp basicshade.h
+	$(CXX) -c basicshade.cpp
+
+fullshade.o :  fullshade.cpp fullshade.h
+	$(CXX) -c fullshade.cpp

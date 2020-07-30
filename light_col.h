@@ -34,7 +34,7 @@ struct LightCol {
     return LightCol(red + L.red, green + L.green, blue + L.blue);
   };
 
-  inline LightCol reflect(const LightCol& L) {
+  inline LightCol reflect(const LightCol& L) const {
     return LightCol(red * L.red, green * L.green, blue * L.blue);
   };
 
@@ -43,7 +43,7 @@ struct LightCol {
     return LightCol(red*inv, green * inv, blue*inv);
   };
 
-  inline LightCol scale(float s) {
+  inline LightCol scale(float s) const {
     return LightCol(red * s, green * s, blue * s);
   };
 

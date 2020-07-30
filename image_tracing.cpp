@@ -7,7 +7,10 @@
 #include "light_col.h"
 #include "controler.h"
 #include "spheregeom.h"
+#include "planegeom.h"
 #include "flatmat.h"
+#include "basicshade.h"
+#include "fullshade.h"
 
 #include <iostream>
 #include <sstream>
@@ -42,124 +45,161 @@ cout << "count : "<< count <<  endl;
 
   image<rgb_pixel> image (img_width, img_height);
 
-
   /*
-  FixedSceene sceene(10,1);
+
+  FixedSceene sceene(10,3);
 
   //Sphere sphere(sphere_center, sphere_rad, LightCol(0,255,0));
   //sceene.addRenderable(&sphere);
 
 
-  Sphere* s1 = new Sphere(Vector3(10,0,5), 1, LightCol(255,0,0));
+  SphereGeom s1_g = SphereGeom(Vector3(10,0,5), 1);
+  FullShade s1_m = FullShade(LightCol(1,0,0));
+  Renderable s1 = Renderable(&s1_g, &s1_m);
   sceene.addRenderable(s1);
 
 
-  Sphere* s2 = new Sphere(Vector3(12,0,-2), 0.5, LightCol(0,255,0));
+  SphereGeom s2_g = SphereGeom(Vector3(12,0,-2), 0.5);
+  FullShade s2_m = FullShade(LightCol(0,1,0));
+  Renderable s2 = Renderable(&s2_g, &s2_m);
   sceene.addRenderable(s2);
 
-  Sphere* s3 = new Sphere(Vector3(20,0,2), 2, LightCol(0,0,200));
+  SphereGeom s3_g = SphereGeom(Vector3(20,0,2), 2);
+  FullShade s3_m = FullShade(LightCol(0,0,0.8));
+  Renderable s3 = Renderable(&s3_g, &s3_m);
   sceene.addRenderable(s3);
 
-  Sphere* s4 = new Sphere(Vector3(20,0,-5), 0.5, LightCol(200,200,00));
+  SphereGeom s4_g = SphereGeom(Vector3(20,0,-5), 0.5);
+  FullShade s4_m = FullShade(LightCol(0.8,0.8,0));
+  Renderable s4 = Renderable(&s4_g, &s4_m);
   sceene.addRenderable(s4);
 
-  Sphere* s5 = new Sphere(Vector3(20,-3,-5), 0.5, LightCol(200,0,100));
+  SphereGeom s5_g = SphereGeom(Vector3(20,-3,-5), 0.5);
+  FullShade s5_m = FullShade(LightCol(0.8,0,0.4));
+  Renderable s5 = Renderable(&s5_g, &s5_m);
   sceene.addRenderable(s5);
 
-  Sphere* s6 = new Sphere(Vector3(15.5,-3,-2), 0.5, LightCol(200,0,100));
+  SphereGeom s6_g = SphereGeom(Vector3(15.5,-3,-2), 0.5);
+  Renderable s6 = Renderable(&s6_g, &s5_m);
   sceene.addRenderable(s6);
 
-  Light* light = new Light(Vector3(10,-10,0));
 
-  Plane* p1 = new Plane(Vector3(0,-1,0), 0, LightCol(150,150,150));
+  PlaneGeom p_g = PlaneGeom(Vector3(0,-1,0), 0);
+  FullShade p_m = FullShade(LightCol(0.6,0.6,0.6));
+  Renderable p1 = Renderable(&p_g, &p_m);
   sceene.addRenderable(p1);
 
-  sceene.addLight(light);
+
+  Light light1 = Light(Vector3(10,-10,4));
+
+  Light light2 = Light(Vector3(3,-10,-10));
+
+  sceene.addLight(light1);
+  sceene.addLight(light2);
   */
 
 
-
-  /*
   FixedSceene sceene(20, 4);
 
-  
-  //Light* light1 = new Light(Vector3(15,-10,-2), LightCol(0.2,0.9,0.1), 5);
-  Light* light1 = new Light(Vector3(15,-10,-2),  5);
+  //Light* light1 = new Light(Vector3(15,-10,-2), LightCol(0.2,0.9,0.1), 2);
+  Light light1 = Light(Vector3(15,-10,-2), 2);
   sceene.addLight(light1);
-  
-  
-  Light* light2 = new Light(Vector3(10,-5,20), LightCol(1,0,0.2), 0.5);
+
+  //Light light2 = Light(Vector3(10,-5,20), LightCol(1,0,0.2), 0.5);
+  Light light2 = Light(Vector3(10,-5,20),2);
   sceene.addLight(light2);
 
+  Light light3 = Light(Vector3(10,5,0), LightCol(0,0,1), 2);
+  sceene.addLight(light3);
+
+  /*
   Light* light3 = new Light(Vector3(5,-7,-3), LightCol(0.1,1,0.2), 0.5);
   //Light* light3 = new Light(Vector3(0,-7,-3), 0.5);
   sceene.addLight(light3);
- 
+
   //Light* light4 = new Light(Vector3(0,-4,5), LightCol(0,0.1,0.9),6);
   Light* light4 = new Light(Vector3(0,-4,5), 6);
   sceene.addLight(light4);
+  */
 
-  
-  Plane* p1 = new Plane(Vector3(0,-1,0), 0, LightCol(0.59,0.59,0.59));
-  p1->shade_pixel_col = LightCol(0.27,0.270,0.270);
+  /*
+  PlaneGeom p1_g = PlaneGeom(Vector3(0,-1,0), 0);
+  FullShade p1_m = FullShade(LightCol(0.59,0.59,0.59));
+  Renderable p1 = Renderable(&p1_g, &p1_m);
   sceene.addRenderable(p1);
-  
+  */
 
-  Plane* p2 = new Plane(Vector3(-1,0,0), -20, LightCol(0.8,0.8,0.8));
-  //p2->shade_pixel_col = LightCol(1,0,0);
+  PlaneGeom p2_g = PlaneGeom(Vector3(-1,0,0), -20);
+  FullShade p2_m = FullShade(LightCol(0.8,0.8,0.8));
+  Renderable p2(&p2_g, &p2_m);
   sceene.addRenderable(p2);
 
-  Sphere* s1 = new Sphere2(Vector3(10,-1,0),0.5, LightCol(0.78,0,0), true, true);
-  //s1->shade_pixel_col = LightCol(0.39,0,0);
+  SphereGeom s1_g = SphereGeom(Vector3(10,-1,0),0.5);
+  FullShade s1_m = FullShade(LightCol(0.78,0,0));
+  Renderable s1(&s1_g, &s1_m);
   sceene.addRenderable(s1);
 
-  Sphere* s1_1 = new Sphere2(Vector3(10,-2,-2),1, LightCol(0.9,0.9,0.05), true, true);
-  //s1_1->shade_pixel_col = LightCol(0.39,0,0);
+  SphereGeom s1_1_g(Vector3(10,-2,-2),1);
+  FullShade s1_1_m(LightCol(0.9,0.9,0.05), 2);
+  Renderable s1_1 = Renderable(&s1_1_g, &s1_1_m);
   sceene.addRenderable(s1_1);
 
-  Sphere* s2 = new Sphere2(Vector3(15,-1,5),0.5, LightCol(0.78,0,0));
-  s2->shade_pixel_col = LightCol(0.39,0,0);
+  SphereGeom s2_g = SphereGeom(Vector3(15,-1,5),0.5);
+  FullShade s2_m(LightCol(0.78,0,0), 2);
+  Renderable s2(&s2_g, &s2_m);
   sceene.addRenderable(s2);
 
-  Sphere* s3 = new Sphere2(Vector3(15,-1,-5),0.5, LightCol(0.78,0,0), false, false);
-  s3->shade_pixel_col = LightCol(0.39,0,0);
+  SphereGeom s3_g = SphereGeom(Vector3(15,-1,-5),0.5);
+  FullShade s3_m(LightCol(0.78,0,0));
+  Renderable s3(&s3_g, &s3_m);
   sceene.addRenderable(s3);
 
-  Sphere* s4 = new Sphere2(Vector3(25,-1,0),0.5, LightCol(0.78,0,0));
-  s4->shade_pixel_col = LightCol(0.39,0,0);
+  SphereGeom s4_g(Vector3(25,-1,0),0.5);
+  FullShade s4_m(LightCol(0.78,0,0), 2);
+  Renderable s4(&s4_g, &s4_m);
   sceene.addRenderable(s4);
 
-  Sphere* s5 = new Sphere2(Vector3(15,-3,0),0.5, LightCol(0.78,0,0.78));
-  s5->shade_pixel_col = LightCol(9.39,0,0.39);
+  SphereGeom s5_g(Vector3(15,-3,0),0.5);
+  FullShade s5_m(LightCol(0.78,0,0.78), 0.2);
+  Renderable s5 = Renderable(&s5_g, &s5_m);
   sceene.addRenderable(s5);
 
-  Sphere* s6 = new Sphere2(Vector3(15,1,0),3, LightCol(0.39,0.78,0.78));
-  s6->shade_pixel_col = LightCol(0.2,0.39,0.39);
+  SphereGeom s6_g(Vector3(15,1,0),3);
+  FullShade s6_m(LightCol(0.39,0.78,0.78),0.5);
+  Renderable s6(&s6_g, &s6_m);
   sceene.addRenderable(s6);
 
-  Sphere* s7 = new Sphere2(Vector3(20,1,8),3, LightCol(0.39,0.78,0.78));
-  s7->shade_pixel_col = LightCol(0.2,0.39,0.39);
+  SphereGeom s7_g(Vector3(20,1,8),3);
+  FullShade s7_m(LightCol(0.39,0.78,0.78), 0.2);
+  Renderable s7(&s7_g, &s7_m);
   sceene.addRenderable(s7);
 
-  Sphere* s8 = new Sphere2(Vector3(15,-4,-3),0.2, LightCol(0.78,0,0.78));
-  s8->shade_pixel_col = LightCol(0.2,0,0.39);
+  SphereGeom s8_g(Vector3(15,-4,-3),0.2);
+  FullShade s8_m(LightCol(0.78,0,0.78));
+  Renderable s8(&s8_g, &s8_m);
   sceene.addRenderable(s8);
 
-  Sphere* s9 = new Sphere2(Vector3(15,-10,-5),2, LightCol(0,0.78,0.39), true, true);
-  s9->shade_pixel_col = LightCol(0,0.39,0.2);
+  SphereGeom s9_g(Vector3(15,-10,-5),2);
+  FullShade s9_m(LightCol(0,0.78,0.39),2);
+  Renderable s9(&s9_g, &s9_m);
   sceene.addRenderable(s9);
 
-  Sphere* s10 = new RSphere(Vector3(10,1,4),3, LightCol(1,0.4,0.5));
+  SphereGeom s10_g(Vector3(10,1,4),3);
+  FullShade s10_m(LightCol(1,0.4,0.5));
+  Renderable s10(&s10_g, &s10_m);
   sceene.addRenderable(s10);
 
-  Sphere* s11 = new RSphere(Vector3(10,-2,-6),3, LightCol(0.1,0.8,0.7));
+  SphereGeom s11_g(Vector3(10,-2,-6),3);
+  FullShade s11_m(LightCol(0.1,0.8,0.7));
+  Renderable s11(&s11_g, &s11_m);
   sceene.addRenderable(s11);
 
-  Plane* p3 = new Plane(Vector3(0,0,1), -8, LightCol(0.78,0.78,0.58));
-  p3->shade_pixel_col = LightCol(0.2,0.2,0.29);
+  PlaneGeom p3_g(Vector3(0,0,1), -8);
+  FullShade p3_m(LightCol(0.78,0.78,0.58));
+  Renderable p3(&p3_g, &p3_m);
   sceene.addRenderable(p3);
 
-  */
+  
 
   /*
 
@@ -190,17 +230,25 @@ cout << "count : "<< count <<  endl;
   */
 
 
+    /*
   FixedSceene sceene(5,2);
 
   FlatMaterial flat_mat = FlatMaterial(LightCol(1,0,0));
   SphereGeom s_geom_1 = SphereGeom(Vector3(5,-5,2), 1);
   Renderable r1(&s_geom_1, &flat_mat);
   sceene.addRenderable(r1);
-  
+
   FlatMaterial flat_mat_2 = FlatMaterial(LightCol(0,1,0));
   SphereGeom s_geom_2 = SphereGeom(Vector3(20,-2,2), 5);
   Renderable r2(&s_geom_2, &flat_mat_2);
   sceene.addRenderable(r2);
+
+  FlatMaterial flat_mat_white = FlatMaterial(LightCol(1,1,1));
+  PlaneGeom p_geom = PlaneGeom(Vector3(0,1,0),0);
+  Renderable r3(&p_geom, &flat_mat_white);
+  sceene.addRenderable(r3);
+  
+  */
 
 
   std::cout << sceene.toString() << endl;
@@ -223,7 +271,7 @@ cout << "count : "<< count <<  endl;
       dy, /* float dy  */
       dz,/* float dz  */
       1,/* int max_bounce  */
-      1,/* int rayx_per_pixel  */
+      32,/* int rayx_per_pixel  */
       1);/* int difuse_rays  */
 
 
@@ -258,13 +306,12 @@ cout << "count : "<< count <<  endl;
 
   cout << "max brightness is: " << max_brightness << endl;
 
-  /*
+  
   if(max_brightness > 1 ) {
     max_brightness = 1 / max_brightness;
   }
-  */
+  
 
-  max_brightness = 1;
   
   cout << "test" << endl;
 
