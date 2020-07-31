@@ -11,6 +11,7 @@
 #include "flatmat.h"
 #include "basicshade.h"
 #include "fullshade.h"
+#include "difusemat.h"
 
 #include <iostream>
 #include <sstream>
@@ -18,7 +19,6 @@
 #include <cstdlib>
 #include <ctime>
 #include <fstream>
-
 using namespace png;
 using namespace std;
 
@@ -39,7 +39,8 @@ cout << "count : "<< count <<  endl;
   float dz = 0.001;
   float dy = 0.001;
 
-  Vector3 camera_start(0,-4,0);
+  //Vector3 camera_start(0,-4,0);
+  Vector3 camera_start(0,-1,0);
 
   Vector3 cam_direction(1,0,0);
 
@@ -99,6 +100,7 @@ cout << "count : "<< count <<  endl;
   */
 
 
+  /*
   FixedSceene sceene(20, 4);
 
   //Light* light1 = new Light(Vector3(15,-10,-2), LightCol(0.2,0.9,0.1), 2);
@@ -111,6 +113,7 @@ cout << "count : "<< count <<  endl;
 
   Light light3 = Light(Vector3(10,5,0), LightCol(0,0,1), 2);
   sceene.addLight(light3);
+  */
 
   /*
   Light* light3 = new Light(Vector3(5,-7,-3), LightCol(0.1,1,0.2), 0.5);
@@ -129,6 +132,7 @@ cout << "count : "<< count <<  endl;
   sceene.addRenderable(p1);
   */
 
+  /*
   PlaneGeom p2_g = PlaneGeom(Vector3(-1,0,0), -20);
   FullShade p2_m = FullShade(LightCol(0.8,0.8,0.8));
   Renderable p2(&p2_g, &p2_m);
@@ -199,7 +203,7 @@ cout << "count : "<< count <<  endl;
   Renderable p3(&p3_g, &p3_m);
   sceene.addRenderable(p3);
 
-  
+ */ 
 
   /*
 
@@ -230,26 +234,33 @@ cout << "count : "<< count <<  endl;
   */
 
 
-    /*
   FixedSceene sceene(5,2);
 
-  FlatMaterial flat_mat = FlatMaterial(LightCol(1,0,0));
-  SphereGeom s_geom_1 = SphereGeom(Vector3(5,-5,2), 1);
+  int max_bounce = 3;
+  int difuse_rays = 2;
+
+  DifuseMat flat_mat = DifuseMat(LightCol(1,0,0), 1, max_bounce, difuse_rays);
+  SphereGeom s_geom_1 = SphereGeom(Vector3(5,-0.8,2), 1);
   Renderable r1(&s_geom_1, &flat_mat);
   sceene.addRenderable(r1);
 
-  FlatMaterial flat_mat_2 = FlatMaterial(LightCol(0,1,0));
-  SphereGeom s_geom_2 = SphereGeom(Vector3(20,-2,2), 5);
+  DifuseMat flat_mat_2 = DifuseMat(LightCol(0,1,0), 1, max_bounce, difuse_rays);
+  SphereGeom s_geom_2 = SphereGeom(Vector3(10,-2,2), 5);
   Renderable r2(&s_geom_2, &flat_mat_2);
   sceene.addRenderable(r2);
 
-  FlatMaterial flat_mat_white = FlatMaterial(LightCol(1,1,1));
-  PlaneGeom p_geom = PlaneGeom(Vector3(0,1,0),0);
+  DifuseMat flat_mat_white = DifuseMat(LightCol(1,1,1), 1, max_bounce, difuse_rays);
+  PlaneGeom p_geom = PlaneGeom(Vector3(0,-1,0.1),0);
   Renderable r3(&p_geom, &flat_mat_white);
   sceene.addRenderable(r3);
-  
-  */
 
+  PlaneGeom p_geom2 = PlaneGeom(Vector3(0,0,-1),-5);
+  Renderable r4(&p_geom2, &flat_mat_white);
+  sceene.addRenderable(r4);
+
+
+  Light light(Vector3(3, -4, -3));
+  sceene.addLight(light);
 
   std::cout << sceene.toString() << endl;
 
@@ -271,30 +282,30 @@ cout << "count : "<< count <<  endl;
       dy, /* float dy  */
       dz,/* float dz  */
       1,/* int max_bounce  */
-      32,/* int rayx_per_pixel  */
+      1,/* int rayx_per_pixel  */
       1);/* int difuse_rays  */
 
 
-  //float max_brightness = -1000000.0;
+  float max_brightness = 0;
   cout << "starting colour scaling" << endl;
   
-  /*
+  
   for(int i = 0; i < img_width; i++) {
     for(int j = 0; j < img_height; j++){
       if(raw_colours[i][j].red > max_brightness) {
-        max_brightness = raw_colours[j][i].red;
+        max_brightness = raw_colours[i][j].red;
       } 
       if(raw_colours[i][j].green > max_brightness) {
-        max_brightness = raw_colours[j][i].green;
+        max_brightness = raw_colours[i][j].green;
       } 
       if(raw_colours[i][j].blue > max_brightness) {
-        max_brightness = raw_colours[j][i].blue;
+        max_brightness = raw_colours[i][j].blue;
       }
 
     }
   }
-  */
 
+  /*
   float max_brightness = 0;
 
   Light* lights = sceene.getLights();
@@ -303,11 +314,14 @@ cout << "count : "<< count <<  endl;
     max_brightness += lights[i].brightness;
   }
 
+  */
 
   cout << "max brightness is: " << max_brightness << endl;
 
   
-  if(max_brightness > 1 ) {
+  if(max_brightness == 0) {
+    max_brightness = 1;
+  } else if(max_brightness > 1 ) {
     max_brightness = 1 / max_brightness;
   }
   
@@ -335,5 +349,8 @@ cout << "count : "<< count <<  endl;
 
     cout << "./images/image" << count << ".png";
   }
+
+  cout << "Created " << Ray::num << " Rays" << endl;
+  cout << "Created " << Intersection::num << " Intersections " << endl;
 
 };

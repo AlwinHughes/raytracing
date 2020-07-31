@@ -21,3 +21,4 @@ bool Ray::containsPoint(Vector3 p) const {
   return false;
 };
 
+unsigned long Ray::num = 0;

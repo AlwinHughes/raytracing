@@ -27,6 +27,7 @@ void FixedSceene::addRenderable(Renderable rend) {
     //geometry needs a reference to its parent 
     renderable_objs[curr_num_obj].geometry->parent = &renderable_objs[curr_num_obj];
     renderable_objs[curr_num_obj].material->sceene = this;
+    renderable_objs[curr_num_obj].material->parent = &renderable_objs[curr_num_obj];
     curr_num_obj++;
   }
 };
@@ -82,6 +83,8 @@ Intersection FixedSceene::getClosestInter(const Ray& ray, const Vector3 cam_pos,
 
   for(int i = 0; i < curr_num_obj; i++) {
     if(avoid == &renderable_objs[i]) {
+
+      //std::cout << "found same " << std::endl;
       //we want to avoid this specific object
       continue;
     }

@@ -19,5 +19,6 @@ class Material {
     virtual std::string toString() const = 0;
     Material(LightCol c) : color(c) {};
     FixedSceene* sceene;
+    Renderable* parent;
 };
 #endif

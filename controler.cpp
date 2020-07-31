@@ -22,14 +22,16 @@ void Controler::render(LightCol** raw_colours, int width, int height, float dy, 
   std::cout << cam_pos.toString() << std::endl;
   std::cout << cam_direc.toString() << std::endl;
 
+
   if(rays_per_pixel == 1) {
     for(int i = 0; i < width; i++) {
       raw_colours[i] = new LightCol[height];
-      if(i %100 == 0) {
+      if(i %10 == 0) {
         std::cout << "Column " << i << std::endl;
       }
       for(int j = 0; j < height;j++){
 
+        srand(time(NULL));
         LightCol c(0,0,0);
 
         //get the starting ray
@@ -37,6 +39,7 @@ void Controler::render(LightCol** raw_colours, int width, int height, float dy, 
         Ray ray(cam_pos, cam_direc + extra);
 
         Intersection inter = sceene.getClosestInter(ray, cam_pos);
+        //std::cout << "bounces " << inter.bounces << std::endl;
         if(!inter.isEmpty()) {
           c = inter.hit_object->material->getColAtInter(inter,ray);
         }
@@ -47,21 +50,22 @@ void Controler::render(LightCol** raw_colours, int width, int height, float dy, 
 
   } else {
 
-    srand(time(NULL));
-
     for(int i = 0; i < width; i++) {
+    srand(time(NULL));
       raw_colours[i] = new LightCol[height];
       if(i %100 == 0) {
         std::cout << "Column " << i << std::endl;
       }
       for(int j = 0; j < height;j++){
+        srand(time(NULL));
         LightCol c(0,0,0);
 
         for(int k = 0; k < rays_per_pixel; k++) {
-          int r = rand() % 1000000;
+          int r1 = rand() % 1000000;
+          int r2 = rand() % 1000000;
           //define jitter
-          float zj = (float) (r % 1000) / 1000;
-          float yj = (float) (r - r % 1000) / 1000000;
+          float zj = (float) r1 / 1000000.0;
+          float yj = (float) r2 / 1000000.0;
 
          // std::cout << zj << " " << yj << std::endl;
 
@@ -73,6 +77,7 @@ void Controler::render(LightCol** raw_colours, int width, int height, float dy, 
           Intersection inter = sceene.getClosestInter(ray, cam_pos);
           if(!inter.isEmpty()) {
             c = c + inter.hit_object->material->getColAtInter(inter,ray);
+            //std::cout << "not empty" << std::endl;
           }
           //c = c + getColAtInter(inter, ray, max_bounce, difuse_rays);
 

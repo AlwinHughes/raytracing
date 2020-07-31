@@ -8,14 +8,7 @@ std::string FullShade::toString() const {
 };
 
 LightCol FullShade::getColAtInter(const Intersection& inter, const Ray& ray) const { 
-
-  /*
-  if(inter.normal.Dot(ray.grad) > 0) {
-    return LightCol(0,0,0);
-  }
-  */
   
-  //we just care about the first light
   Light* lights = sceene->getLights();
   LightCol lc(0,0,0);
 
@@ -23,12 +16,10 @@ LightCol FullShade::getColAtInter(const Intersection& inter, const Ray& ray) con
 
     Vector3 v = lights[i].pos - inter.pos;
 
-    //std::cout << v.normalize().Dot(inter.normal) << std::endl;
-
+    //assumes shape is concave
     if(inter.normal.Dot(v) < 0) {
-      //std::cout << "gz" << std::endl;
       continue;
-    } 
+    }
     
     if(sceene->isInShade(inter, lights + i)) {
       continue;
