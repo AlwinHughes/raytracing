@@ -292,13 +292,13 @@ cout << "count : "<< count <<  endl;
   //    );
 
   controler.start(
-      2, /* # threads */
+      5, /* # threads */
       raw_colours,  /*LightCol** raw_colours */
       img_width, /* int width  */
       img_height, /* int height  */
       dy, /* float dy  */
       dz,/* float dz  */
-      16/* int rayx_per_pixel  */
+      4/* int rayx_per_pixel  */
       );
 
 

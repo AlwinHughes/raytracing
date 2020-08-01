@@ -40,8 +40,8 @@ class Controler {
     void setCamPos(Vector3 p) { cam_pos = p;};
     void setCamDirec(Vector3 d) { cam_direc = d;};
     Controler(FixedSceene& s) : sceene(s) {};
-    void worker();
-    bool vendor(LightCol*&, int& column);
+    void worker(int);
+    //bool vendor(LightCol*&, int& column);
     void start(int threads, LightCol** raw_cols, int width, int height, float dy, float dz, int rays_per_pixel = 1);
 
 

@@ -105,7 +105,7 @@ void Controler::start(int threads_, LightCol** raw_cols_, int width_, int height
 
 
   for(int i = 0; i < num_threads; i++) {
-    threads.push_back(std::thread(&Controler::worker, this));
+    threads.push_back(std::thread(&Controler::worker, this, i));
   }
 
   for(int i = 0; i < num_threads; i++) {
@@ -113,6 +113,7 @@ void Controler::start(int threads_, LightCol** raw_cols_, int width_, int height
   }
 };
 
+/*
 bool Controler::vendor(LightCol*& out, int& column) {
   std::lock_guard<std::mutex> guard(mu);
   if(current_col < width) {
@@ -127,18 +128,23 @@ bool Controler::vendor(LightCol*& out, int& column) {
   }
   return false;
 };
+*/
 
-void Controler::worker() {
+void Controler::worker(int start_col) {
 
-  int col;
-  LightCol* out;
+  int col = start_col;
 
   std::cout << "worker \n";
-
-  while(vendor(out, col)) {
+  int count = 0;
+  while(col < width) {
     //do compute stuff
-    //std::cout << "start row \n";
-    //std:: cout << "col " << col << std::endl;
+
+
+    output[col] = new LightCol[width];
+
+    if((col - start_col) % 50 == 0) {
+     std::cout << "Column " << col << " on " << std::this_thread::get_id() << std::endl;
+    }
 
     if(rays_per_pixel == 1) {
 
@@ -156,7 +162,7 @@ void Controler::worker() {
           c = inter.hit_object->material->getColAtInter(inter,ray);
         }
 
-        out[j] = c;
+        output[col][j] = c;
       }
 
     } else {
@@ -186,11 +192,12 @@ void Controler::worker() {
           //c = c + getColAtInter(inter, ray, max_bounce, difuse_rays);
 
         }
-        out[j] = c.scale(1.0 / (float) rays_per_pixel);
+        output[col][j] = c.scale(1.0 / (float) rays_per_pixel);
       }
     }
 
-
+    col += num_threads;
+    ++count;
   }
 
 };
