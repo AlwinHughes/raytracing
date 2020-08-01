@@ -37,8 +37,6 @@ LightCol DifuseMat::getColAtInter(const Intersection& inter, const Ray& ray) con
     
     LightCol c(0,0,0);
 
-    srand(time(NULL));
-
     for(int i = 0; i < max_difuse_rays; i++) {
 
       //std::cout << "bounces " << inter.bounces << std::endl;
@@ -47,12 +45,12 @@ LightCol DifuseMat::getColAtInter(const Intersection& inter, const Ray& ray) con
       Vector3 v = u.cross(inter.normal);
       //now u, v and inter.normal form an ortogonal basis
 
-      int r1 = rand() % 1000000;
-      int r2 = rand() % 1000000;
+      int r1 = rand() % 10000;
+      int r2 = rand() % 10000;
       //define jitter
-      float uj = (float) r1 / 1000000.0;
+      float uj = (float) r1 / 10000.0;
       uj = 2.0*(uj -0.5) * difuseion;
-      float vj = (float) r2 / 1000000.0;
+      float vj = (float) r2 / 10000.0;
       vj = 2.0*(vj -0.5) * difuseion;
 
       Vector3 new_direction = inter.normal + (u * uj) + (v * vj);

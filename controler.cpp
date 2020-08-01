@@ -24,6 +24,9 @@ void Controler::render(LightCol** raw_colours, int width, int height, float dy, 
 
 
   if(rays_per_pixel == 1) {
+
+    srand(time(NULL));
+
     for(int i = 0; i < width; i++) {
       raw_colours[i] = new LightCol[height];
       if(i %10 == 0) {
@@ -50,14 +53,13 @@ void Controler::render(LightCol** raw_colours, int width, int height, float dy, 
 
   } else {
 
-    for(int i = 0; i < width; i++) {
     srand(time(NULL));
+    for(int i = 0; i < width; i++) {
       raw_colours[i] = new LightCol[height];
-      if(i %100 == 0) {
+      if(i %10 == 0) {
         std::cout << "Column " << i << std::endl;
       }
       for(int j = 0; j < height;j++){
-        srand(time(NULL));
         LightCol c(0,0,0);
 
         for(int k = 0; k < rays_per_pixel; k++) {

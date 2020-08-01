@@ -13,6 +13,7 @@
 #include "fullshade.h"
 #include "difusemat.h"
 
+#include <math.h>
 #include <iostream>
 #include <sstream>
 #include <cmath>
@@ -233,11 +234,13 @@ cout << "count : "<< count <<  endl;
   delete test_inter;
   */
 
+   //cout << "RAND MAX " << RAND_MAX << endl;
+ 
 
   FixedSceene sceene(5,2);
 
-  int max_bounce = 3;
-  int difuse_rays = 2;
+  int max_bounce = 4;
+  int difuse_rays = 8;
 
   DifuseMat flat_mat = DifuseMat(LightCol(1,0,0), 1, max_bounce, difuse_rays);
   SphereGeom s_geom_1 = SphereGeom(Vector3(5,-0.8,2), 1);
@@ -250,17 +253,20 @@ cout << "count : "<< count <<  endl;
   sceene.addRenderable(r2);
 
   DifuseMat flat_mat_white = DifuseMat(LightCol(1,1,1), 1, max_bounce, difuse_rays);
-  PlaneGeom p_geom = PlaneGeom(Vector3(0,-1,0.1),0);
+  PlaneGeom p_geom = PlaneGeom(Vector3(0,-1,0),0);
   Renderable r3(&p_geom, &flat_mat_white);
   sceene.addRenderable(r3);
 
+  DifuseMat flat_mat_white2 = DifuseMat(LightCol(1,1,1), 1, max_bounce, difuse_rays);
   PlaneGeom p_geom2 = PlaneGeom(Vector3(0,0,-1),-5);
-  Renderable r4(&p_geom2, &flat_mat_white);
+  Renderable r4(&p_geom2, &flat_mat_white2);
   sceene.addRenderable(r4);
-
 
   Light light(Vector3(3, -4, -3));
   sceene.addLight(light);
+
+  Light light2(Vector3(10, -16, 3), 2);
+  sceene.addLight(light2);
 
   std::cout << sceene.toString() << endl;
 
@@ -282,7 +288,7 @@ cout << "count : "<< count <<  endl;
       dy, /* float dy  */
       dz,/* float dz  */
       1,/* int max_bounce  */
-      1,/* int rayx_per_pixel  */
+      16,/* int rayx_per_pixel  */
       1);/* int difuse_rays  */
 
 
@@ -331,9 +337,10 @@ cout << "count : "<< count <<  endl;
 
   for(int i = 0; i < img_width; i++) {
    for(int j = 0; j < img_height; j++){
-      LightCol lc = raw_colours[i][j].scale(max_brightness * 255);
+      //LightCol lc = raw_colours[i][j].scale(max_brightness * 255);
+      LightCol lc = raw_colours[i][j].scale(max_brightness);
       //LightCol lc = raw_colours[i][j].scale(255);
-      image[j][i] = rgb_pixel(lc.red, lc.green, lc.blue);
+      image[j][i] = rgb_pixel(sqrt(lc.red) *255, sqrt(lc.green)*255, sqrt(lc.blue)*255);
     }
   }
 
