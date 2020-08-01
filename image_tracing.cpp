@@ -239,8 +239,8 @@ cout << "count : "<< count <<  endl;
 
   FixedSceene sceene(5,2);
 
-  int max_bounce = 4;
-  int difuse_rays = 8;
+  int max_bounce = 3;
+  int difuse_rays = 4;
 
   DifuseMat flat_mat = DifuseMat(LightCol(1,0,0), 1, max_bounce, difuse_rays);
   SphereGeom s_geom_1 = SphereGeom(Vector3(5,-0.8,2), 1);
@@ -281,15 +281,25 @@ cout << "count : "<< count <<  endl;
   //
           //render(LightCol** raw_colours, int width, int height, float dy, float dz, int max_bounce, int rays_per_pixel, int difuse_rays) {
 
-  controler.render(
+  
+  //controler.render(
+  //   raw_colours,  /*LightCol** raw_colours */
+  //  img_width, /* int width  */
+  //    img_height, /* int height  */
+  //    dy, /* float dy  */
+  //    dz,/* float dz  */
+  //    1/* int rayx_per_pixel  */
+  //    );
+
+  controler.start(
+      2, /* # threads */
       raw_colours,  /*LightCol** raw_colours */
       img_width, /* int width  */
       img_height, /* int height  */
       dy, /* float dy  */
       dz,/* float dz  */
-      1,/* int max_bounce  */
-      16,/* int rayx_per_pixel  */
-      1);/* int difuse_rays  */
+      16/* int rayx_per_pixel  */
+      );
 
 
   float max_brightness = 0;

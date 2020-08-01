@@ -17,7 +17,7 @@
 
 //void render(LightCol** raw_cols, int width, int height, float dy, float dz, int max_bounce = 1, int rays_per_pixel = 1, int difuse_rays = 0);
 
-void Controler::render(LightCol** raw_colours, int width, int height, float dy, float dz, int max_bounce, int rays_per_pixel, int difuse_rays) {
+void Controler::render(LightCol** raw_colours, int width, int height, float dy, float dz, int rays_per_pixel) {
 
   std::cout << cam_pos.toString() << std::endl;
   std::cout << cam_direc.toString() << std::endl;
@@ -56,7 +56,7 @@ void Controler::render(LightCol** raw_colours, int width, int height, float dy, 
     srand(time(NULL));
     for(int i = 0; i < width; i++) {
       raw_colours[i] = new LightCol[height];
-      if(i %10 == 0) {
+      if(i %100 == 0) {
         std::cout << "Column " << i << std::endl;
       }
       for(int j = 0; j < height;j++){
@@ -91,6 +91,110 @@ void Controler::render(LightCol** raw_colours, int width, int height, float dy, 
   }
 
 };
+
+void Controler::start(int threads_, LightCol** raw_cols_, int width_, int height_, float dy_, float dz_, int rays_per_pixel_) {
+  num_threads = threads_;
+  output = raw_cols_;
+  width = width_;
+  height = height_;
+  dy = dy_;
+  dz = dz_;
+  rays_per_pixel = rays_per_pixel_;
+  current_col = 0;
+  srand(time(NULL));
+
+
+  for(int i = 0; i < num_threads; i++) {
+    threads.push_back(std::thread(&Controler::worker, this));
+  }
+
+  for(int i = 0; i < num_threads; i++) {
+    threads[i].join();
+  }
+};
+
+bool Controler::vendor(LightCol*& out, int& column) {
+  std::lock_guard<std::mutex> guard(mu);
+  if(current_col < width) {
+     //std::cout << "Column " << current_col << " on " << std::this_thread::get_id() << std::endl;
+    if(current_col %100 == 0) {
+      std::cout << "Column " << current_col<< std::endl;
+    }
+    column = current_col;
+    out = new LightCol[height];
+    output[current_col++] = out;
+    return true;
+  }
+  return false;
+};
+
+void Controler::worker() {
+
+  int col;
+  LightCol* out;
+
+  std::cout << "worker \n";
+
+  while(vendor(out, col)) {
+    //do compute stuff
+    //std::cout << "start row \n";
+    //std:: cout << "col " << col << std::endl;
+
+    if(rays_per_pixel == 1) {
+
+      for(int j = 0; j < height;j++){
+
+        LightCol c(0,0,0);
+
+        //get the starting ray
+        Vector3 extra(0, dz * (j - (float) height/ 2 ), dy * (col - (float) width/2));
+        Ray ray(cam_pos, cam_direc + extra);
+
+        Intersection inter = sceene.getClosestInter(ray, cam_pos);
+        //std::cout << "bounces " << inter.bounces << std::endl;
+        if(!inter.isEmpty()) {
+          c = inter.hit_object->material->getColAtInter(inter,ray);
+        }
+
+        out[j] = c;
+      }
+
+    } else {
+
+      for(int j = 0; j < height;j++){
+        LightCol c(0,0,0);
+
+        for(int k = 0; k < rays_per_pixel; k++) {
+          int r1 = rand() % 1000000;
+          int r2 = rand() % 1000000;
+          //define jitter
+          float zj = (float) r1 / 1000000.0;
+          float yj = (float) r2 / 1000000.0;
+
+          // std::cout << zj << " " << yj << std::endl;
+
+          //std::cout << i << " " << j << std::endl;
+          //get the starting ray
+          Vector3 extra(0, dz * (j + zj - (float) height/ 2 ), dy * (col  + yj - (float) width/2));
+          Ray ray(cam_pos, cam_direc + extra);
+
+          Intersection inter = sceene.getClosestInter(ray, cam_pos);
+          if(!inter.isEmpty()) {
+            c = c + inter.hit_object->material->getColAtInter(inter,ray);
+            //std::cout << "not empty" << std::endl;
+          }
+          //c = c + getColAtInter(inter, ray, max_bounce, difuse_rays);
+
+        }
+        out[j] = c.scale(1.0 / (float) rays_per_pixel);
+      }
+    }
+
+
+  }
+
+};
+
 
 LightCol Controler::getColAtInter(Intersection inter, Ray ray, int max_bounce, int difuse_rays) {
 
