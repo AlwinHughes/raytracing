@@ -12,6 +12,9 @@
 #include "basicshade.h"
 #include "fullshade.h"
 #include "difusemat.h"
+#include "mirror.h"
+#include "checkeredmat.h"
+#include "shinymat.h"
 
 #include <math.h>
 #include <iostream>
@@ -237,36 +240,50 @@ cout << "count : "<< count <<  endl;
    //cout << "RAND MAX " << RAND_MAX << endl;
  
 
-  FixedSceene sceene(5,2);
+  FixedSceene sceene(6,2);
 
-  int max_bounce = 3;
-  int difuse_rays = 4;
+  int max_bounce = 6;
+  int difuse_rays = 1;
 
-  DifuseMat flat_mat = DifuseMat(LightCol(1,0,0), 1, max_bounce, difuse_rays);
+  ShinyMat flat_mat(LightCol(1,0,0), 1, max_bounce, difuse_rays, 40);
   SphereGeom s_geom_1 = SphereGeom(Vector3(5,-0.8,2), 1);
   Renderable r1(&s_geom_1, &flat_mat);
   sceene.addRenderable(r1);
 
-  DifuseMat flat_mat_2 = DifuseMat(LightCol(0,1,0), 1, max_bounce, difuse_rays);
-  SphereGeom s_geom_2 = SphereGeom(Vector3(10,-2,2), 5);
+  ShinyMat flat_mat_2(LightCol(0,1,0), 1, max_bounce, difuse_rays, 20);
+  SphereGeom s_geom_2 = SphereGeom(Vector3(8,-2,2), 3);
   Renderable r2(&s_geom_2, &flat_mat_2);
   sceene.addRenderable(r2);
 
-  DifuseMat flat_mat_white = DifuseMat(LightCol(1,1,1), 1, max_bounce, difuse_rays);
+  //DifuseMat flat_mat_white = DifuseMat(LightCol(1,1,1), 1, max_bounce, difuse_rays);
+  CheckeredMat checkered_mat = CheckeredMat(LightCol(1,1,1), 1, max_bounce, difuse_rays);
   PlaneGeom p_geom = PlaneGeom(Vector3(0,-1,0),0);
-  Renderable r3(&p_geom, &flat_mat_white);
+  Renderable r3(&p_geom, &checkered_mat );
   sceene.addRenderable(r3);
 
+  /*
   DifuseMat flat_mat_white2 = DifuseMat(LightCol(1,1,1), 1, max_bounce, difuse_rays);
   PlaneGeom p_geom2 = PlaneGeom(Vector3(0,0,-1),-5);
   Renderable r4(&p_geom2, &flat_mat_white2);
   sceene.addRenderable(r4);
+  */
 
+  MirrorMat mirror_mat = MirrorMat(LightCol(0.5,1,0.3));
+  SphereGeom s_geom_3(Vector3(10,-3,-5),3.5);
+  Renderable r5(&s_geom_3, &mirror_mat);
+  sceene.addRenderable(r5);
+
+  
   Light light(Vector3(3, -4, -3));
   sceene.addLight(light);
+  
+  Light light3(Vector3(3, -6, 2), LightCol(1,0.2,0.2));
+  sceene.addLight(light3);
 
+  /*
   Light light2(Vector3(10, -16, 3), 2);
   sceene.addLight(light2);
+  */
 
   std::cout << sceene.toString() << endl;
 
@@ -291,15 +308,29 @@ cout << "count : "<< count <<  endl;
   //    1/* int rayx_per_pixel  */
   //    );
 
+  
+  
   controler.start(
-      5, /* # threads */
-      raw_colours,  /*LightCol** raw_colours */
-      img_width, /* int width  */
-      img_height, /* int height  */
-      dy, /* float dy  */
-      dz,/* float dz  */
-      4/* int rayx_per_pixel  */
+      1, // # threads /
+      raw_colours,  // LightCol** raw_colours /
+      img_width, // int width  /
+      img_height, // int height  /
+      dy, // float dy  /
+      dz,// float dz  /
+     128// int rayx_per_pixel  /
       );
+      
+      
+  /*
+  controler.render(
+      raw_colours,  // LightCol** raw_colours /
+      img_width, // int width  /
+      img_height, // int height  /
+      dy, // float dy  /
+      dz,// float dz  /
+      4// int rayx_per_pixel  /
+      );
+      */
 
 
   float max_brightness = 0;

@@ -12,7 +12,6 @@ LightCol DifuseMat::getColAtInter(const Intersection& inter, const Ray& ray) con
   Light* lights = sceene->getLights();
   LightCol lc(0,0,0);
 
-  bool do_difuse = true;
 
   for(int i = 0; i < sceene->curr_num_lights; i++) {
 
@@ -27,7 +26,6 @@ LightCol DifuseMat::getColAtInter(const Intersection& inter, const Ray& ray) con
     }
 
     lc = lc + color.reflect(lights[i].lc).scale(v.normalize().Dot(inter.normal) * lights[i].brightness);
-    do_difuse = false;
   }
 
       //std::cout << "bounces " << inter.bounces << " max " << this->max_bounce << std::endl;

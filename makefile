@@ -1,7 +1,8 @@
 CXX = g++
 
-entry : entry.o image_tracing.o ray.o  light.o fixedsceene.o renderable.o intersection.o  controler.o spheregeom.o planegeom.o basicshade.o fullshade.o difusemat.o
-	$(CXX) -o entry entry.o ray.o light.o fixedsceene.o renderable.o intersection.o controler.o spheregeom.o planegeom.o basicshade.o fullshade.o difusemat.o `libpng-config --ldflags` -pthread
+entry : entry.o image_tracing.o ray.o  light.o fixedsceene.o renderable.o intersection.o  controler.o spheregeom.o planegeom.o basicshade.o fullshade.o difusemat.o mirror.o checkeredmat.o shinymat.o
+
+	$(CXX) -o entry entry.o ray.o light.o fixedsceene.o renderable.o intersection.o controler.o spheregeom.o planegeom.o basicshade.o fullshade.o difusemat.o mirror.o checkeredmat.o shinymat.o `libpng-config --ldflags` -pthread
 
 entry.o : entry.cpp image_tracing.o 
 	$(CXX) -c entry.cpp `libpng-config --cflags` -pthread
@@ -41,3 +42,12 @@ fullshade.o :  fullshade.cpp fullshade.h
 
 difusemat.o :  difusemat.cpp difusemat.h
 	$(CXX) -c difusemat.cpp
+
+mirror.o :  mirror.cpp mirror.h
+	$(CXX) -c mirror.cpp
+
+checkeredmat.o :  checkeredmat.cpp checkeredmat.h
+	$(CXX) -c checkeredmat.cpp
+
+shinymat.o :  shinymat.cpp shinymat.h
+	$(CXX) -c shinymat.cpp
