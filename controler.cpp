@@ -142,7 +142,7 @@ void Controler::worker(int start_col) {
 
     output[col] = new LightCol[width];
 
-    if((col - start_col) % 10 == 0) {
+    if((col - start_col) % 100 == 0 && start_col == 0) {
      std::cout << "Column " << col << " on " << std::this_thread::get_id() << std::endl;
     }
 

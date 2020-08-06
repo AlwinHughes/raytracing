@@ -15,6 +15,7 @@
 #include "mirror.h"
 #include "checkeredmat.h"
 #include "shinymat.h"
+#include "metalicmat.h"
 
 #include <math.h>
 #include <iostream>
@@ -245,12 +246,12 @@ cout << "count : "<< count <<  endl;
   int max_bounce = 6;
   int difuse_rays = 1;
 
-  ShinyMat flat_mat(LightCol(1,0,0), 1, max_bounce, difuse_rays, 40);
+  ShinyMat flat_mat(LightCol(1,0,0), 10, max_bounce, difuse_rays, 40);
   SphereGeom s_geom_1 = SphereGeom(Vector3(5,-0.8,2), 1);
   Renderable r1(&s_geom_1, &flat_mat);
   sceene.addRenderable(r1);
 
-  ShinyMat flat_mat_2(LightCol(0,1,0), 1, max_bounce, difuse_rays, 20);
+  ShinyMat flat_mat_2(LightCol(0,1,0), 10, max_bounce, difuse_rays, 20);
   SphereGeom s_geom_2 = SphereGeom(Vector3(8,-2,2), 3);
   Renderable r2(&s_geom_2, &flat_mat_2);
   sceene.addRenderable(r2);
@@ -268,7 +269,8 @@ cout << "count : "<< count <<  endl;
   sceene.addRenderable(r4);
   */
 
-  MirrorMat mirror_mat = MirrorMat(LightCol(0.5,1,0.3));
+  //MirrorMat mirror_mat = MirrorMat(LightCol(0.5,1,0.3));
+  MetalicMat mirror_mat(LightCol(0.5,0.5,0.5), 0.05, 20);
   SphereGeom s_geom_3(Vector3(10,-3,-5),3.5);
   Renderable r5(&s_geom_3, &mirror_mat);
   sceene.addRenderable(r5);
@@ -277,7 +279,7 @@ cout << "count : "<< count <<  endl;
   Light light(Vector3(3, -4, -3));
   sceene.addLight(light);
   
-  Light light3(Vector3(3, -6, 2), LightCol(1,0.2,0.2));
+  Light light3(Vector3(3, -2, 5), LightCol(1,0.2,0.2));
   sceene.addLight(light3);
 
   /*
@@ -317,10 +319,10 @@ cout << "count : "<< count <<  endl;
       img_height, // int height  /
       dy, // float dy  /
       dz,// float dz  /
-     128// int rayx_per_pixel  /
+     256// int rayx_per_pixel  /
       );
-      
-      
+
+
   /*
   controler.render(
       raw_colours,  // LightCol** raw_colours /
@@ -335,7 +337,6 @@ cout << "count : "<< count <<  endl;
 
   float max_brightness = 0;
   cout << "starting colour scaling" << endl;
-  
   
   for(int i = 0; i < img_width; i++) {
     for(int j = 0; j < img_height; j++){

@@ -10,8 +10,6 @@ std::string MirrorMat::toString() const {
 LightCol MirrorMat::getColAtInter(const Intersection& inter, const Ray& ray) const {
 
 
-  //std::cout << "mirro hit" << std::endl;
-
   Vector3 new_direc = ray.grad + (inter.normal * (ray.grad.Dot(inter.normal)) * (-2));
   
   Ray new_ray(inter.pos, new_direc);
