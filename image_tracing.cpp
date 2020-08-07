@@ -252,10 +252,13 @@ cout << "count : "<< count <<  endl;
   Renderable r1(&s_geom_1, &flat_mat);
   sceene.addRenderable(r1);
 
+  
   ShinyMat flat_mat_2(LightCol(0,1,0), 10, max_bounce, difuse_rays, 20);
-  SphereGeom s_geom_2 = SphereGeom(Vector3(8,-2,2), 3);
+  //FullShade flat_mat_2(LightCol(0,1,0));
+  SphereGeom s_geom_2 = SphereGeom(Vector3(8,-2,2), 2);
   Renderable r2(&s_geom_2, &flat_mat_2);
   sceene.addRenderable(r2);
+  
 
   //DifuseMat flat_mat_white = DifuseMat(LightCol(1,1,1), 1, max_bounce, difuse_rays);
   CheckeredMat checkered_mat = CheckeredMat(LightCol(1,1,1), 1, max_bounce, difuse_rays);
@@ -263,12 +266,10 @@ cout << "count : "<< count <<  endl;
   Renderable r3(&p_geom, &checkered_mat );
   sceene.addRenderable(r3);
 
-  /*
   DifuseMat flat_mat_white2 = DifuseMat(LightCol(1,1,1), 1, max_bounce, difuse_rays);
   PlaneGeom p_geom2 = PlaneGeom(Vector3(0,0,-1),-5);
   Renderable r4(&p_geom2, &flat_mat_white2);
   sceene.addRenderable(r4);
-  */
 
   //MirrorMat mirror_mat = MirrorMat(LightCol(0.5,1,0.3));
   MetalicMat mirror_mat(LightCol(0.5,0.5,0.5), 0.05, 20);
@@ -280,7 +281,7 @@ cout << "count : "<< count <<  endl;
   Light light(Vector3(3, -4, -3));
   sceene.addLight(light);
   
-  Light light3(Vector3(3, -2, 5), LightCol(1,0.2,0.2));
+  Light light3(Vector3(20, -2, 1), LightCol(1,1,0.2));
   sceene.addLight(light3);
 
   /*
@@ -336,7 +337,7 @@ cout << "count : "<< count <<  endl;
       img_height, // int height  /
       dy, // float dy  /
       dz,// float dz  /
-     1// int rayx_per_pixel  /
+     64// int rayx_per_pixel  /
       );
 
 
@@ -366,15 +367,10 @@ cout << "count : "<< count <<  endl;
       if(raw_colours[i][j].blue > max_brightness) {
         max_brightness = raw_colours[i][j].blue;
       }
-
     }
   }
 
-
-
-
-  /*
-  float max_brightness = 0;
+/* float max_brightness = 0;
 
   Light* lights = sceene.getLights();
   for(int i = 0; i< sceene.curr_num_lights; i++) {

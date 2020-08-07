@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include "controler.h"
 #include "fixedsceene.h"
+#include <math.h>
 
 
 class Previewer {
