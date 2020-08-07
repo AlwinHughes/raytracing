@@ -16,6 +16,7 @@
 #include "checkeredmat.h"
 #include "shinymat.h"
 #include "metalicmat.h"
+#include "previewer.h"
 
 #include <math.h>
 #include <iostream>
@@ -27,7 +28,7 @@
 using namespace png;
 using namespace std;
 
-void imageTracing(bool write = true) {
+void imageTracing(bool write, bool preview, bool show) {
 
   fstream file;
 
@@ -310,8 +311,24 @@ cout << "count : "<< count <<  endl;
   //    1/* int rayx_per_pixel  */
   //    );
 
-  
-  
+  if(preview) {
+
+    LightCol** raw_colours = new LightCol*[img_width/2];
+    controler.preview(raw_colours, img_width/2, img_height/2, dz * 2, dy * 2);
+
+    Previewer::get().view(raw_colours, img_height/2, img_width/2);
+    cout << "Do you want to do the full render? [Y/n]" << endl;
+
+    string input;
+    cin >> input;
+    if(input == "n") {
+      cout << "Canceling" << endl;
+      return;
+    }
+  }
+
+  cout << "Starting full render" << endl;
+
   controler.start(
       1, // # threads /
       raw_colours,  // LightCol** raw_colours /
@@ -319,7 +336,7 @@ cout << "count : "<< count <<  endl;
       img_height, // int height  /
       dy, // float dy  /
       dz,// float dz  /
-     256// int rayx_per_pixel  /
+     1// int rayx_per_pixel  /
       );
 
 
@@ -353,6 +370,9 @@ cout << "count : "<< count <<  endl;
     }
   }
 
+
+
+
   /*
   float max_brightness = 0;
 
@@ -374,8 +394,20 @@ cout << "count : "<< count <<  endl;
   }
   
 
+  if(show) {
+    Previewer::get().view(raw_colours, img_height, img_width, max_brightness);
+
+    if(write) {
+      cout << "Do you want to write the image? [Y/n]" << endl;
+      string input;
+      cin >> input;
+      if(input == "n") {
+        return;
+      }
+    }
+  }
+
   
-  cout << "test" << endl;
 
   for(int i = 0; i < img_width; i++) {
    for(int j = 0; j < img_height; j++){
@@ -396,7 +428,7 @@ cout << "count : "<< count <<  endl;
     ofile << count;
     ofile.close();
 
-    cout << "./images/image" << count << ".png";
+    cout << "./images/image" << count << ".png" << endl;
   }
 
   cout << "Created " << Ray::num << " Rays" << endl;

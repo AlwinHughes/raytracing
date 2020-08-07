@@ -287,6 +287,26 @@ LightCol Controler::getColAtInter(Intersection inter, Ray ray, int max_bounce, i
   return lc;
 };
 
+void Controler::preview(LightCol** raw_colours, int width, int height, float dy, float dz) {
+  for(int i = 0; i < width; i++) {
+    raw_colours[i] = new LightCol[height];
+    for(int j = 0; j < height;j++){
+
+      LightCol c(0,0,0);
+
+      //get the starting ray
+      Vector3 extra(0, dz * (j - (float) height/ 2 ), dy * (i - (float) width/2));
+      Ray ray(cam_pos, cam_direc + extra);
+
+      Intersection inter = sceene.getClosestInter(ray, cam_pos);
+      if(!inter.isEmpty()) {
+        c = inter.hit_object->material->color.scale(inter.normal.Dot(ray.grad.invert().normalize()));
+      }
+
+      raw_colours[i][j] = c;
+    }
+  }
+}
 
 
 std::string Controler::toString() {

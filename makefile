@@ -1,9 +1,9 @@
 CXX = g++
 
-OPTIONS = -pthread -O3
+OPTIONS = -pthread -O3 -L/usr/X11R6/lib -lX11 
 
-entry : entry.o image_tracing.o ray.o  light.o fixedsceene.o renderable.o intersection.o  controler.o spheregeom.o planegeom.o basicshade.o fullshade.o difusemat.o mirror.o checkeredmat.o shinymat.o  metalicmat.o
-	$(CXX) -o  entry entry.o ray.o light.o fixedsceene.o renderable.o intersection.o controler.o spheregeom.o planegeom.o basicshade.o fullshade.o difusemat.o mirror.o checkeredmat.o shinymat.o metalicmat.o $(OPTIONS) `libpng-config --ldflags` 
+entry : entry.o image_tracing.o ray.o  light.o fixedsceene.o renderable.o intersection.o  controler.o spheregeom.o planegeom.o basicshade.o fullshade.o difusemat.o mirror.o checkeredmat.o shinymat.o  metalicmat.o previewer.o
+	$(CXX) -o  entry entry.o ray.o light.o fixedsceene.o renderable.o intersection.o controler.o spheregeom.o planegeom.o basicshade.o fullshade.o difusemat.o mirror.o checkeredmat.o shinymat.o metalicmat.o previewer.o $(OPTIONS) `libpng-config --ldflags` 
 
 entry.o : entry.cpp image_tracing.o 
 	$(CXX) -c $(OPTIONS) entry.cpp `libpng-config --cflags` 
@@ -55,3 +55,8 @@ shinymat.o :  shinymat.cpp shinymat.h
 
 metalicmat.o :  metalicmat.cpp metalicmat.h
 	$(CXX) -c metalicmat.cpp $(OPTIONS)
+
+previewer.o : previewer.cpp previewer.h 
+	$(CXX) -c previewer.cpp $(OPTIONS)
+
+

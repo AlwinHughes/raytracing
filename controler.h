@@ -41,8 +41,13 @@ class Controler {
     void setCamDirec(Vector3 d) { cam_direc = d;};
     Controler(FixedSceene& s) : sceene(s) {};
     void worker(int);
+    void preview(LightCol** raw_cols, int width, int height, float dy, float dz);
     //bool vendor(LightCol*&, int& column);
     void start(int threads, LightCol** raw_cols, int width, int height, float dy, float dz, int rays_per_pixel = 1);
+    int getWidth() { return width; }
+    int getHeight() { return height; }
+    float getdz() { return dz; }
+    float getdy() { return dy; }
 
 
 };
