@@ -242,9 +242,9 @@ cout << "count : "<< count <<  endl;
    //cout << "RAND MAX " << RAND_MAX << endl;
  
 
-  FixedSceene sceene(6,2);
+  FixedSceene sceene(10,2);
 
-  int max_bounce = 6;
+  int max_bounce = 4;
   int difuse_rays = 1;
 
   ShinyMat flat_mat(LightCol(1,0,0), 10, max_bounce, difuse_rays, 40);
@@ -266,7 +266,7 @@ cout << "count : "<< count <<  endl;
   Renderable r3(&p_geom, &checkered_mat );
   sceene.addRenderable(r3);
 
-  DifuseMat flat_mat_white2 = DifuseMat(LightCol(1,1,1), 1, max_bounce, difuse_rays);
+  DifuseMat flat_mat_white2 = DifuseMat(LightCol(1,1,1), 5, max_bounce, difuse_rays);
   PlaneGeom p_geom2 = PlaneGeom(Vector3(0,0,-1),-5);
   Renderable r4(&p_geom2, &flat_mat_white2);
   sceene.addRenderable(r4);
@@ -277,11 +277,23 @@ cout << "count : "<< count <<  endl;
   Renderable r5(&s_geom_3, &mirror_mat);
   sceene.addRenderable(r5);
 
-  
+
+  DifuseMat checkered_mat2(LightCol(0.2,0.5,1), 5, max_bounce, difuse_rays);
+  PlaneGeom p_geom3 = PlaneGeom(Vector3(0,1,0),-5);
+  Renderable r6(&p_geom3, &checkered_mat2 );
+  sceene.addRenderable(r6);
+
+  DifuseMat checkered_mat3(LightCol(0.2,0.5,1), 5, max_bounce, difuse_rays);
+  PlaneGeom p_geom4 = PlaneGeom(Vector3(-1,0,0),-15);
+  Renderable r7(&p_geom4, &checkered_mat3);
+  sceene.addRenderable(r7);
+
+  /*
   Light light(Vector3(3, -4, -3));
   sceene.addLight(light);
-  
-  Light light3(Vector3(20, -2, 1), LightCol(1,1,0.2));
+  */
+
+  Light light3(Vector3(13, -2, 1));
   sceene.addLight(light3);
 
   /*
@@ -337,7 +349,7 @@ cout << "count : "<< count <<  endl;
       img_height, // int height  /
       dy, // float dy  /
       dz,// float dz  /
-     64// int rayx_per_pixel  /
+     8// int rayx_per_pixel  /
       );
 
 
