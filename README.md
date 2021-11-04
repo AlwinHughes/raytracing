@@ -1,5 +1,7 @@
 # Raytracing
 
+![Test Image](/demo/image_63.png)
+
 This is a software based ray tracing engine written in cpp. It depends on xlib, and libpng. 
 
 ## Compiling 
